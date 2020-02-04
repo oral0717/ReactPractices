@@ -4,7 +4,7 @@ import React from 'react'
 export default class App extends React.Component{
   render(){
     return (
-      <div>this is xxapp.js</div>
+      <div>this is app.js</div>
     )
   }
 }
