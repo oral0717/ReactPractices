@@ -200,22 +200,122 @@ plugins: [
 }
 再次执行npm run build构建项目，新index.html即可以展示相关内容
 
+//////////////
+15.P2-5
+服务端渲染的配置
 
-
-
-14.服务端渲染的配置 P2-5
-为什么会有服务端渲染?
-
+1.为什么会有服务端渲染?
 单页应用存在的问题：
     seo不友好；浏览器端渲染html内容，引擎爬虫抓取内容时不会执行js，根据url请求到网页，加载的是个空白html
     首次请求等待时间较长，体验不好
 
 react构建完成的app在node环境中进行渲染过程，得到html内容，浏览器得到的内容已经是html内容，解决上述两个问题
 
+2.
 react-dom是React为web端开发的渲染工具，用render方法渲染组件
 react-dom/server提供将react组件渲染成html 的方法
 
-15.P2-6
+3.
+服务端node环境里没有document,window对象
+需要建立server-entry.js ,把需要在服务端渲染出来的内容export,
+在服务端渲染时需要使用server-entry.js，但是不能在服务端直接执行server-entry.js，因其实jsx;需要打包该文件
+
+创建build/webpack.config.server.js,配置打包服务端文件
+module.exports = {
+  target: 'node',// 打包出来的js文件将在哪种环境中执行，node(nodejs环境)/web(浏览器)等
+  entry: {
+    app: path.join(__dirname, '../client/server-entry.js')
+  },
+  output: {
+    filename: 'server-enter.js',//服务端无缓存概念，且此文件名以后会被引用，名字不用hash
+    path: path.join(__dirname, '../dist'),
+    publicPath: '',
+    libraryTarget: 'commonjs2'// 打包出来的js使用的模块方案，有umd,cmd(seajs)，amd(requirejs),global
+  },
+  module: {
+    rules: [
+      {
+        test: /\.jsx$/,
+        loader: 'babel-loader'
+      }
+      ,{
+        test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: [
+          path.join(__dirname, '../node_modules')
+        ]
+      }
+    ]
+  }
+}
+为方便起见，将package.json中"scripts"修改：
+"scripts":{
+    "build:client": "webpack --config build/webpack.config.client.js",
+    "build:server": "webpack --config build/webpack.config.server.js",
+    "clear": "rimraf dist",//删除整个dist目录，保证每次打包文件都最新的.rimraf 是nodejs的一个很小的包，需要安装，专用来删除文件夹
+    "build": "npm run clear && npm run build:client && npm run build:server"
+}
+执行 npm run build 执行打包，dist出现三个文件，打包以后，可以在服务端使用
+
+4.mkdir server //根目录新建文件夹server,
+ touch server/server.js //增加文件server.js,写入nodejs服务
+
+ npm i express // 服务端使用express框架
+
+编辑server.js,将express等引入
+启动服务命令放入package.json里，"start": "node server/server.js"
+
+const serverEnter = require('../dist/server-entry').default// 一定要加default，服务端里用的commonjs2规范，没有解构 export default的内容
+
+至此实现了简单的服务端渲染配置，但是目前只是渲染出了server-entry.js里的内容，没有渲染出前端业务js
+需要继续实现：
+服务端渲染出的内容要插入到html的body里，再把整个内容返回浏览器端
+
+5.服务端渲染出的内容要插入到html的body里，再把整个内容返回浏览器端
+touch client/template.html 新建文件
+  <div id="root">// 业务代码放在这个id下
+    <!--app-->//客户端/服务端渲染的时候，会被业务代码替换掉
+  </div>
+template.html使用方式：
+    1.修改webpack.config.client.js
+    plugins:[
+        new HTMLPlugin([
+            //dist下生成的html文件index.html会以template.html作为模板插入生成的js
+            template: path.join(__dirname,'../client/template.html')
+        ])
+    ]
+    2.server端，需要把生成html文件index.html读进来
+    server.js内修改：
+    const fs = require('fs')
+    const path = require('path')
+    // 读取打包文件，指定‘utf8’才会读出string格式，否则是buffer
+    const template = fs.readFileSync(path.join(__dirname,'../dist/index.html'),'utf8')
+    // 处理静态文件请求
+    app.use('/public',express.static(path.join(__dirname,'../dist')))
+    app.get('*',function(req,res){
+        res.send(template.replace('<!--app-->',appString))
+    })
+
+    reactDOM里原本使用ReactDOM.render()方法，
+    react16版本使用ReactDOM.hydrate()在客户端js里渲染客户端内容，
+    如果需要使用服务端渲染代码，react会对比服务端和客户端生成的代码，
+    如果有差别，它认为服务端代码有问题，会使用客户端新生成的代码替换掉服务端生成的内容
+
+    修改了文件以后一定要先编译npm run build，再重新启动服务器npm start
+
+///////////
+16.P2-6 WebApp架构简介
+    1.新建分支feature-add-react：
+    git branch//查看所有分支
+    git checkout -b feature-add-react//新建分支并切换到该新分支
+    git push origin feature-add-react//新分支push远程
+    git branch --set-upstream-to=origin/feature-add-react feature-add-react//关联本地与远程分支
+    git pull
+    2.
+
+
+
+
 
 
 
