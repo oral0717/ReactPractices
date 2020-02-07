@@ -18,6 +18,6 @@ app.get('*', function(req,res){
 })
 
 // 回调函数报告启动服务成功，启动命令放入package.json里
-app.listen(3333, function(){
-  console.log('server is listening on 3333')
+app.listen(33, function(){
+  console.log('server is listening on 33')
 })
