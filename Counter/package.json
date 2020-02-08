@@ -1,14 +1,19 @@
 {
   "name": "count",
   "version": "1.0.0",
-  "description": "",
+  "description": "react+mobx practice",
   "main": "index.js",
   "scripts": {
     "build:client": "webpack --config build/webpack.config.client.js",
     "build:server": "webpack --config build/webpack.config.server.js",
+    "dev:client": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.config.client.js",
     "clear": "rimraf dist",
     "build": "npm run clear && npm run build:client && npm run build:server",
     "start": "node server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oral0717/ReactPractices.git"
   },
   "author": "Oral",
   "license": "ISC",
@@ -23,8 +28,10 @@
     "@babel/preset-env": "^7.8.4",
     "@babel/preset-react": "^7.8.3",
     "babel-loader": "^8.0.6",
+    "cross-env": "^7.0.0",
     "html-webpack-plugin": "^3.2.0",
     "rimraf": "^3.0.1",
-    "webpack-cli": "^3.3.10"
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.10.3"
   }
 }
