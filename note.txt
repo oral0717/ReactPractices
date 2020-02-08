@@ -142,7 +142,7 @@ module.exports = {
     output:{
         filename:'[name].[hash].js', // []里是变量，name代表entry下对应一项的key名字，hash名字会因任何js文件改变而变
         path:path.join(__dirname,'../dist'), //指明输出文件存放位置
-        publicPath:'/public' // 静态资源文件引用时的路径（在html里引用时）如/public/app.hash.js，区分一个url是静态文件还是api请求等
+        publicPath:'/public/' // 静态资源文件引用时的路径（在html里引用时）如/public/app.hash.js，区分一个url是静态文件还是api请求等
     }
 }
 到此，可以在app.js里写入js内容，进行打包
@@ -304,14 +304,107 @@ template.html使用方式：
     修改了文件以后一定要先编译npm run build，再重新启动服务器npm start
 
 ///////////
-16.P2-6 WebApp架构简介
+16.P2-6 项目开发时的常用配置
     1.新建分支feature-add-react：
     git branch//查看所有分支
     git checkout -b feature-add-react//新建分支并切换到该新分支
     git push origin feature-add-react//新分支push远程
     git branch --set-upstream-to=origin/feature-add-react feature-add-react//关联本地与远程分支
     git pull
-    2.
+
+    git checkout master
+    git merge feature-add-react
+    git push
+
+    2.常用配置
+    webpack-dev-server //webpack官方插件，通过webpack的配置启动服务器，方便访问所有文件，
+                       //编译时文件存在于内存中，文件发生改动时，服务器自动执行编译过程，
+                       //不需要手动执行编译,就可以在浏览器器中看到变化
+    hot-module-replacement // 文件代码改变时，浏览器无刷新改变内容，不用重新获取数据
+
+    修改配置：
+    const isDev = process.env.NODE_ENV === 'development'// 启动命令时手动输入告知当前环境
+
+    if(isDev){
+        config.devServer = { //webpack所有配置 http://webpack.js.org/configuration/dev-server/
+            host: '0,0,0,0', //本地开发，代表可以用任何方式访问，指向本机IP访问方式：如'127.0.0.1'，也可以使用'localhost'，也可以使用本机IP访问；
+                             // 如果这里配置上'localhost'或'127.0.0.1'，当在局域网开发时，别人想连此电脑调试时，无法访问
+            port: '8888',
+            contentBase: path.join(__dirname,'../dist'),//启动服务器为了访问编译的静态文件，这里要配置output的path
+            hot: true,//启动Hot module replacement
+            overlay: {//当编译出现错误时，网页上出现弹窗，提示出错
+                errors:true//在error时出现，也可以设置warnings
+            },
+            publicPath: '/public/',// config里output里的对应
+            historyApiFallback: {// 配置对应关系，使所有404请求都返回index.html
+                index: '/public/index.html'
+            }
+        }
+    }
+
+    npm i webpack-dev-server -D
+    设置package.js中的"scripts":
+    "dev:client": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.config.client.js"
+    // cross-env NODE_ENV=development 启动webpack时候这里告知是开发环境
+    // cross-env包，需要安装，用来解决mac,window上的设置环境变量时的差异
+    // npm i cross-env -D
+
+    启动服务器：
+    // npm run dev:client
+
+17.P2-7 配置hot-module-replacement
+    hot-module-replacement // 文件代码改变时，浏览器无刷新改变内容，不用重新获取数据
+
+    1.babelrc里添加配置：
+    "plugins": ["react-hot-loader/babel"]
+        // npm i react-hot-loader@next -D 包，提供React的hot-module-replacement功能的工具
+        // react-hot-loader@next 安装最新版
+        // babel ，表示使用babel的情况下使用hot-module-replacement功能
+
+    2.修改app.js
+    增加：
+    import { AppContainer } from 'react-hot-loader' // AppContainer用来包裹根节点需要渲染的实际html内容
+    //ReactDOM.hydrate(<App/>,document.getElementById('root'))
+    const root = document.getElementById('root')
+    const render = (Component) => {
+        ReactDOM.hydrate(
+            <AppContainer>
+                <Component />
+            </AppContainer>,
+            root
+        )
+    }
+    render(App)
+
+    if(module.hot){
+        module.hot.accept('./App.jsx', ()=>{
+            const NextApp = require('./App.jsx').default
+            //ReactDOM.hydrate(<NextApp/>,document.getElementById('root'))
+            render(NextApp)
+        })
+    }
+
+
+    3.在webpack.config.js里if(isDev)里加入
+    config.entry = {
+        app: [
+            'react-hot-loader/patch',//客户端热更新代码时需要用到的部分
+            path.join(__dirname,'../client/app.js)
+        ]
+    }
+    hot:true
+    config.plugins.push(new webpack.HotModuleReplacementPlugin())// 这个插件是在webpack里，需要引入webpack
+    const webpack = require('webpack')
+
+////////////
+
+17.P2-8开发时的服务端渲染
+
+
+
+
+
+
 
 
 
