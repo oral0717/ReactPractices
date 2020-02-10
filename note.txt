@@ -399,11 +399,104 @@ template.html使用方式：
 ////////////
 
 17.P2-8开发时的服务端渲染
+会涉及到客户端js
+    1.server.js
+    需要判断是否是开发环境
+    const isDev = process.env.NODE_ENV === 'development'
+    if (!isDev) { //非开发环境
+        // express.static处理硬盘上的静态文件
+        // 但是开发环境中，静态文件没有存入硬盘，而是在内存里，所以需要设置代理
+    } else { // 开发环境，需要的东西都放在util文件夹里
+        const devStatic = require('./util/dev-static')
+        devServer(app)
+    }
 
 
+    2.补充开发环境下服务器渲染部分：
+    mkdir server/util   // 由于内容太多，单独新建文件夹存放，未来这里会放很多东西
+    touch server/util dev-static.js
 
+    dev-static.js
+    const axios = require('axios') // axios处理http请求的工具，在浏览器及node中都能使用
+    const webpack = require('webpack')
+    const path = require('path')
+    const MemoryFs = require('memory-fs')// 不希望serverCompiler把bundle文件写入硬盘，比较费时
+                                        // 引入memory-fs 包，可以实现从内存里读写文件内容
+    const ReactDomServer = require('react-dom/server') // 用来渲染server端的包
+    const proxy =  require('http-proxy-middleware')
 
+    const serverConfig = require('../../build/webpack.config.server)
 
+    const getTemplate = () => {
+        return new Promise((resolve, reject)=>{
+            axios.get('http://localhost:8888/public/index.html)//webpack启动本地服务，这里url比较固定，即打包出的文件
+                .then(res =>{
+                    resolve(res.data)
+                })
+                .catch(reject) // 出现问题
+        })
+    }
+
+    const Module = module.constructor // 使用module的构造函数创建新的Module
+    const mfs = new MemoryFs
+
+    // 获取server端的打包文件
+    const serverCompiler = webpack(serverConfig) // 监听entry依赖的文件是否有变化，一旦有变化，重新打包
+    serverCompiler.outputFileSystem = mfs //outputFileSystem是webpack提供的配置项，配置mfs后替换之前用fs读取文件方式，即从内存里读写，比较快
+    let serverBundle
+    serverCompiler.watch({}, (err,status)=>{// {}是配置 ,status是打包时输出的信息
+        if(err){ throw err }
+        status = status.toJson()
+        status.errors.forEach(err => { //读出errors信息
+            console.error(err)
+        })
+        status.warnings.forEach(warn => {//读出warnings信息
+            console.warn(warn)
+        })
+
+        // 获取bundle文件路径
+        const bundlePath = path.join(
+            serverConfig.output.path,
+            serverConfig.output.filename
+        )
+        const bundle = mfs.readFileSync(bundlePath, 'utf-8') // 通过mfs方式从内存中读取bundle文件
+            //但是读取出来的内容不是module模块，是一个字符串，需要转换
+        const m = new Module() //创建新的实例
+        m._compile(bundle, 'server-entry.js') // 用module去解析字符串，生成一个新的模块,一定要指定文件名
+        serverBundle = m.exports.default
+
+    })
+    module.exports = function(app) {
+        // npm i http-proxy-middleware -D // express的中间件，做代理
+        // 客户端的js都是在webpack-dev-server里存储，通过http服务export出来，
+        // 所以需要将静态文件都通过代理的方式代理到webpack-dev-server启动的服务上面
+        app.use('/public', proxy({ // 静态文件url都要用一个共同的前缀'/public'，方便区分
+            target: 'http://localhost:8888'
+        }))
+        app.get('*', function(req, res){
+            getTemplate().then(template => {
+                const content = ReactDomServer.renderToString(serverBundle)
+                res.send(template.replace('<!--app-->', content))
+            })
+        })
+    }
+
+    3.
+    webpack.config.server.js中"scripts"
+    "start": "node server/server.js"改为
+    "dev:server": "cross-env NODE_ENV=development node server/server.jf"
+    启动: npm run dev:client
+    启动: npm run dev:server
+
+    4.mode设置，放在webpack.config.server.js,webpack.config.client.js
+    mode: "development"
+
+18.
+    1.实现服务端热更新：nodemon
+    修改"dev:server": "cross-env NODE_ENV=development node server/server.js",
+    "dev:server": "cross-env NODE_ENV=development nodemon server/server.js"
+
+18.P2-10性能优化
 
 
 
