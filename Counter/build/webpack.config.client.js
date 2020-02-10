@@ -13,6 +13,7 @@ const config = {
     path: path.join(__dirname, '../dist'),
     publicPath: '/public/'
   },
+  mode: "development",
   module: {
     rules: [
       {

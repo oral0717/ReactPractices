@@ -11,6 +11,7 @@ module.exports = {
     publicPath: '/public/',
     libraryTarget: 'commonjs2'
   },
+  mode: "development",
   module: {
     rules: [
       {
