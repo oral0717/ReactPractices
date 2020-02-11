@@ -8,7 +8,7 @@ import App from './App.jsx'
 
 const root = document.getElementById('root')
 const render = (Component)=>{
-  ReactDOM.render(
+  ReactDOM.hydrate(
     <AppContainer>
       <Component />
     </AppContainer>,
