@@ -15,6 +15,7 @@ const render = (Component)=>{
     root
   )
 }
+
 render(App)
 
 if (module.hot) {

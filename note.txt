@@ -491,12 +491,44 @@ template.html使用方式：
     4.mode设置，放在webpack.config.server.js,webpack.config.client.js
     mode: "development"
 
-18.
-    1.实现服务端热更新：nodemon
-    修改"dev:server": "cross-env NODE_ENV=development node server/server.js",
-    "dev:server": "cross-env NODE_ENV=development nodemon server/server.js"
+18.esLint
 
-18.P2-10性能优化
+
+19.P2-10性能优化
+    1.抽出webpack.config.client.js及webpack.config.server.js中共同的部分建立webpack.base.js
+    使用工具：npm i webpack-merge -D // webpack中专门用来合并配置项的包
+    webpackMerge = require('webpack-merge')
+
+    2.服务端加入favicon.icon
+    百度favicon生成图片工具
+
+    npm i serve-favicon -S // express的包，为了加入favicon
+    server.js
+    const favicon = require('serve-favicon')
+    app.use(favicon(path.join(__dirname, '../favicon.ico)))
+
+    3.实现服务端热更新：nodemon
+    修改"dev:server": "cross-env NODE_ENV=development node server/server.js",
+    "dev:server": "nodemon server/server.js"
+
+    4.安装包：npm i nodemon -D //需要写个配置脚本控制服务
+    touch nodemon.json
+    {
+        "ignore": [ // 配置哪些文件变化，服务器可以忽略
+            ".git",
+            "node_modules/**/node_modules",
+            ".eslintrc",
+            "client",
+            "build"
+        ],
+        "env": {// 使用nodemon时，环境变量在这里配置，使得第3点配置成立
+            "NODE_ENV": "development"
+        },
+        "verbose": true,// 编译时输出详细信息
+        "ext": "js" // 配置哪些类型文件变化了，需要重启服务器
+
+    }
+
 
 
 

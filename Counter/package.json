@@ -38,6 +38,7 @@
     "react-hot-loader": "^4.5.3",
     "rimraf": "^3.0.1",
     "webpack-cli": "^3.3.10",
-    "webpack-dev-server": "^3.10.3"
+    "webpack-dev-server": "^3.10.3",
+    "webpack-merge": "^4.2.2"
   }
 }
