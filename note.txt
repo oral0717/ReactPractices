@@ -497,7 +497,7 @@ template.html使用方式：
 19.P2-10性能优化
     1.抽出webpack.config.client.js及webpack.config.server.js中共同的部分建立webpack.base.js
     使用工具：npm i webpack-merge -D // webpack中专门用来合并配置项的包
-    webpackMerge = require('webpack-merge')
+    webpackMerge = require('webpack-merge') // 会进行深度拷贝覆盖
 
     2.服务端加入favicon.icon
     百度favicon生成图片工具
