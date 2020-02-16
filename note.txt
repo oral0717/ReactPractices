@@ -500,16 +500,16 @@ template.html使用方式：
     webpackMerge = require('webpack-merge') // 会进行深度拷贝覆盖
 
     2.服务端加入favicon.icon
-    百度favicon生成图片工具
+    百度e
 
     npm i serve-favicon -S // express的包，为了加入favicon
     server.js
     const favicon = require('serve-favicon')
     app.use(favicon(path.join(__dirname, '../favicon.ico)))
 
-    3.实现服务端热更新：nodemon
+    3.实现服务端热更新：nodemon3EE鹅鹅鹅33333EE33EEEEEEEEEe'e'56GRB RTYYYYYBV  e'e'e'e'e'e'e'e'EEEEEEEEEEEEeee
     修改"dev:server": "cross-env NODE_ENV=development node server/server.js",
-    "dev:server": "nodemon server/server.js"
+    "dev:server": "nodemon server/server.js"K  Khb/../ino'l'l'l
 
     4.安装包：npm i nodemon -D //需要写个配置脚本控制服务
     touch nodemon.json
@@ -529,7 +529,7 @@ template.html使用方式：
 
     }
 
-
+//////////////////end react+webpack基础配置
 
 
 
