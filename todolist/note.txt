@@ -1,0 +1,87 @@
+P1-1目录
+基础内容
+环境搭建
+基础语法
+原理进阶
+动画
+
+Redux
+Redux进阶
+
+实战项目
+环境搭建
+Header
+首页
+详情页
+
+登录校验
+上线
+
+creat-react-app
+组件化思维
+JSX
+开发调试工具
+虚拟DOM
+生命周期
+
+React-transition-group
+Redux
+Antd
+UI,容器组件
+无状态组件
+redux-thunk
+redux-saga
+Styled-components //样式布局，实现样式编码，避免组件间样式干扰
+Immutable.js // 数据框架
+redux-immutable
+axios
+
+P2-1React简介
+ReactJS ReactNative ReactVR
+ReactFiber 即React16，React底层在事件循环中加入了优先级等概念，可以利用事件循环的碎片时间中，执行一些高优先级的用户交互，提高用户体验
+React                           vs  Vue
+更灵活，处理复杂项目，选择性方案更多      更多API，实现功能更简单，正因为API多，灵活性受限制
+复杂度高项目使用                       面向用户端复杂度不是特别高的项目适用
+
+P2-2react开发环境准备
+script引入.js文件来使用react(古老)
+
+通过脚手架工具来编码：webpack gulp grunt
+
+create-react-app //官方推荐脚手架工具,用于初级学习
+用法：
+npm i -g creat-react-app // 全局安装脚手架create-react-app
+create-react-app todolist // 创建并生成项目todolist
+todolist项目目录：manifest.json ,用户在手机上生成app图标
+                serviceWorker.js ,PWA，断网时，用户可以离线访问本app
+                App.test.js ,自动化测试文件
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
