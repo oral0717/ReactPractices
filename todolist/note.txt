@@ -52,6 +52,7 @@ create-react-app //官方推荐脚手架工具,用于初级学习
 用法：
 npm i -g creat-react-app // 全局安装脚手架create-react-app
 create-react-app todolist // 创建并生成项目todolist
+npm run start // 启动
 todolist项目目录：manifest.json ,用户在手机上生成app图标
                 serviceWorker.js ,PWA，断网时，用户可以离线访问本app
                 App.test.js ,自动化测试文件
