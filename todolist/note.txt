@@ -53,10 +53,109 @@ create-react-app //官方推荐脚手架工具,用于初级学习
 npm i -g creat-react-app // 全局安装脚手架create-react-app
 create-react-app todolist // 创建并生成项目todolist
 npm run start // 启动
-todolist项目目录：manifest.json ,用户在手机上生成app图标
+todolist项目目录：manifest.json ,用户在手机上生成app图标的配置
                 serviceWorker.js ,PWA，断网时，用户可以离线访问本app
                 App.test.js ,自动化测试文件
 
+P3-1
+  1.import React, { Component, Fragment } from 'react'
+  // Fragment是个标签占位符，可以用来包裹元素却在html中不会显示
+
+  2.onChange={this.handleChange.bind(this)}
+  // JSX里元素绑定事件，一定要绑定this,绑定作用域
+
+P3-4 JSX语法补充
+  1.dangerouslySetInnerHTML={{__html:item}} 插入html文本，html语法不转义
+  2.<label htmlFor='name' className='label'></label>, for要替换成htmlFor,class要替换成className
+  3.JSX注释形式 {/*xxxxxx*/}或
+  {
+    //xxxxxx
+  }
+
+P3-5拆分组件与组件之间的传值
+  1.
+  constructor(props){
+    super(props)
+    this.handleDel = this.handleDel.bind(this) //性能更好，最好不要把绑定this的放在组件上，原因？
+  }
+  2.子组件调用父组件的某个方法，一定要注意方法的this绑定
+
+P3-6优化
+  1.this.setState((prevState)=>{ // setState参数为一个函数，使之异步化，提升效率
+      const { inputValue, list } = prevState
+      return {
+        list: [...list, inputValue]
+      }
+    })
+
+P3-7
+  jq命令式开发，操作dom
+  react声明式开发
+    与其他框架并存
+    组件化
+    单项数据流，父组件向子组件传值，子组件不能直接改变父组件传过来的值
+    视图层框架，不方便与非父子组件传值，这是需要数据层框架redux,flux
+    函数式编程，方便自动化测试
+P4-1
+  React developer tools
+P4-2
+  import PropTypes from 'prop-types'   //对变量类型做属性校验
+  写法一：
+  TodoItem.propTypes = {
+    item: PropTypes.string,
+    index: PropTypes.number,
+    onHandleDel: PropTypes.func,
+    test: PropTypes.string
+  }
+  TodoItem.defaultProps = {
+    test: 'xx'
+  }
+
+  写法二：
+  在组件内部声明：
+  static propTypes = {
+    item: PropTypes.string,
+    test: PropTypes.string // 同样会约束defaultProps
+  }
+  static defaultProps = {
+    test: 'xx'
+  }
+  PropTypes.arrayOf()
+  PropTypes.oneOfType([])
+
+P4-4
+  虚拟DOM,本质上是JS对象，用js的方式描述DOM
+  节省性能：js对象对比 比真实DOM对比 比较省性能，减少了对真实DOM的创建及对比
+  JSX是模板，不是真实DOM，React.creatElement()使模板变成JS对象（虚拟DOM），再变成真实DOM
+
+  虚拟DOM优点：
+  1.性能提升
+  2.使跨端应用得以实现，React Native, 虚拟DOM可以在原生应用里识别生成原生组件，不用生成DOM
+
+P4-6 Diff算法
+1.setState异步函数执行，短时间多次setState,合并成一次setState，减少比对次数
+2.虚拟DOm逐层比对
+3.key保持稳定，提高虚拟DOM比对性能
+
+P4-7  Ref
+  1.对dom的引用
+  React16, ref={(input)=>{this.input=input}}
+  setState(()=>{},()=>{})
+
+P4-10
+1.ajax请求放在 componentDidMount()
+2.发送ajax请求，使用axios包
+  import axios from 'axios'
+  componentDidMount(){
+    axios.get('/api/todolist')
+      .then(()=>{alert('succ')})
+      .catch(()=>{alert('error')})
+  }
+  Charles代理接口
+
+P4-11 React动画
+1.transition  vs animation
+2.react-transition-group // 动画框架
 
 
 
