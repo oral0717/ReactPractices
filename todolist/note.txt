@@ -142,7 +142,10 @@ P4-7  Ref
   React16, ref={(input)=>{this.input=input}}
   少用ref，容易因为获取不到想要的dom而造成bug。react是数据驱动，尽量不操作dom
   setState(()=>{},()=>{})
-
+P4-9 生命周期函数
+  组件都是继承自React.Component(),其里面都默认内置了其他生命周期函数，唯独没有内置render,因此新组建一定要有render函数，别的生命周期都可以没有
+  shouldComponentUpdate(nextProps, nextState),项目优化
+  componentWillReceiveProps(nextProps)
 P4-10
 1.ajax请求放在 componentDidMount()
 2.发送ajax请求，使用axios包
@@ -153,6 +156,13 @@ P4-10
       .catch(()=>{alert('error')})
   }
   Charles代理接口
+  1.用charles抓取请求的时候，charles总是抓不到localhost:3000发出的请求，也就没办法模拟数据，
+  后来看官网说什么要在charles模拟本地数据的时候域名用localhost.charlesproxy.com。
+  然而很不幸的是，我本地http://localhost.charlesproxy.com:3000本启动不起来项目，所以只能修改react项目的默认域名，
+  在react项目的package.json文件中将原来的"start": “react-scripts start”, 这一句改为
+  "set PORT=3000 HOST=localhost.charlesproxy.com && react-scripts start"，
+  项目的本地启动地址就变成了了http://localhost.charlesproxy.com:3000。此时再用charles模拟数据就成功了。
+
 
 P4-11 React动画
 1.transition  vs animation
@@ -170,6 +180,12 @@ P4-11 React动画
 
 
 
+总结：
+1.性能提升：
+  1.在constructor中绑定好方法的this
+  2.setState传入函数，异步方式修改state，可以合并多次setState
+  3.shouldComponentUpdate,排除不需要重新渲染的时机
+  4.要使用稳定的值做key
 
 
 

@@ -27,4 +27,12 @@ export default class TodoItem extends Component{
     const { onHandleDel, index } = this.props
     onHandleDel(index)
   }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextProps.item !== this.props.item){
+      return true
+    } else {
+      return false
+    }
+  }
 }
