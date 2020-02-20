@@ -134,12 +134,13 @@ P4-4
 
 P4-6 Diff算法
 1.setState异步函数执行，短时间多次setState,合并成一次setState，减少比对次数
-2.虚拟DOm逐层比对
-3.key保持稳定，提高虚拟DOM比对性能
+2.虚拟DOM逐层比对
+3.key保持稳定，提高虚拟DOM对比性能
 
 P4-7  Ref
   1.对dom的引用
   React16, ref={(input)=>{this.input=input}}
+  少用ref，容易因为获取不到想要的dom而造成bug。react是数据驱动，尽量不操作dom
   setState(()=>{},()=>{})
 
 P4-10

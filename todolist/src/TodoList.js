@@ -23,6 +23,7 @@ class TodoList extends Component{
             className='input'
             type='text'
             value={inputValue}
+            ref={(input)=>{this.input=input}}
             onChange={this.handleChange} />
           <button
             onClick={this.handleSubmit}>提交</button>
@@ -48,6 +49,7 @@ class TodoList extends Component{
     })
   }
   handleChange(e){
+    console.log(this.input.value)  // 通过ref获取值
     const {value} = e.target
     this.setState(() => {
       return {
