@@ -166,7 +166,7 @@ P4-10
 
 P4-11 React动画
 1.transition  vs animation
-2.react-transition-group // 动画框架
+2.react-transition-group // 第三方动画模块
 
 
 
@@ -179,6 +179,11 @@ P4-11 React动画
 
 
 
+/////todo start
+1.如何配置项目，使得路径直接识别index.js，而不用将路径写满
+  import Animation from './Animation'等价于
+  import Animation from './Animation/index.js'
+/////todo end
 
 总结：
 1.性能提升：

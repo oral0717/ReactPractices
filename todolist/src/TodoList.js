@@ -27,7 +27,7 @@ class TodoList extends Component{
             ref={(input)=>{this.input=input}}
             onChange={this.handleChange} />
           <button
-            onClick={this.handleSubmit}>提ss交</button>
+            onClick={this.handleSubmit}>提交</button>
         </div>
         <ul>
           {
