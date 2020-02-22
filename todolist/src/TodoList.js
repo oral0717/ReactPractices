@@ -1,14 +1,13 @@
 import React, { Component, Fragment } from 'react'
 import store from './store/index'
 import TodoItem from './TodoItem'
-import axios from 'axios'
+// import axios from 'axios'
 import './style.css'
 
 class TodoList extends Component{
   constructor(){
     super()
     this.state = store.getState()
-    console.log(this.state)
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleDel = this.handleDel.bind(this)
@@ -38,19 +37,19 @@ class TodoList extends Component{
       </Fragment>
     )
   }
-  componentDidMount(){
-    axios.get('/api/todolist')
-      .then((res)=>{
-        this.setState((prevState)=>{
-          return {
-            list: [...prevState.list, ...res.data]
-          }
-        })
-      })
-      .catch((err)=>{
-        console.log('err')
-      })
-  }
+  // componentDidMount(){
+  //   axios.get('/api/todolist')
+  //     .then((res)=>{
+  //       this.setState((prevState)=>{
+  //         return {
+  //           list: [...prevState.list, ...res.data]
+  //         }
+  //       })
+  //     })
+  //     .catch((err)=>{
+  //       console.log('err')
+  //     })
+  // }
   getTodoItem(){
     const { list } = this.state
     return  list.map((item, index)=>{
@@ -77,23 +76,41 @@ class TodoList extends Component{
   }
 
   handleSubmit(){
-    this.setState((prevState)=>{
-      const { inputValue, list } = prevState
-      return {
+    // this.setState((prevState)=>{
+    //   const { inputValue, list } = prevState
+    //   return {
+    //     list: [...list, inputValue],
+    //     inputValue: ''
+    //   }
+    // })
+    const { inputValue, list} = this.state
+    const action = {
+      type: 'add_todo_item',
+      value: {
         list: [...list, inputValue],
         inputValue: ''
       }
-    })
+    }
+    store.dispatch(action)
   }
 
   handleDel(index){
-    this.setState((prevState)=>{
-      const { list } = prevState
-      list.splice(index, 1)
-      return {
+    // this.setState((prevState)=>{
+    //   const { list } = prevState
+    //   list.splice(index, 1)
+    //   return {
+    //     list: [...list]
+    //   }
+    // })
+    const { list } = this.state
+    list.splice(index, 1)
+    const action = {
+      type: 'del_todo_item',
+      value: {
         list: [...list]
       }
-    })
+    }
+    store.dispatch(action)
   }
 
 
