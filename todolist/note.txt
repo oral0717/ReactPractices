@@ -167,9 +167,12 @@ P4-10
 P4-11 React动画
 1.transition  vs animation
 2.react-transition-group // 第三方动画模块
+https://reactcommunity.org/react-transition-group/css-transition
 
 
-
+P5-1Redux
+把所有的数据放入store中管理，一个组件改变了store中的数据，
+其他组件感知到store数据中的变化后，取到新数据并更新
 
 
 
@@ -183,6 +186,8 @@ P4-11 React动画
 1.如何配置项目，使得路径直接识别index.js，而不用将路径写满
   import Animation from './Animation'等价于
   import Animation from './Animation/index.js'
+
+2.项目目录规则，src有什么特殊性
 /////todo end
 
 总结：

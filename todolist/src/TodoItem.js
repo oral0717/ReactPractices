@@ -7,7 +7,7 @@ export default class TodoItem extends Component{
     this.handleClick = this.handleClick.bind(this)
   }
   static propTypes = {
-    item: PropTypes.string,
+    // item: PropTypes.string,
     index: PropTypes.number,
     onHandleDel: PropTypes.func,
     test: PropTypes.string

@@ -16,7 +16,12 @@ class Animation extends Component {
         <div
           className={this.state.isShow ? 'show': 'hide'}
         >Hello Animation !</div>
-        <CSSTransition>
+        <CSSTransition
+          in={this.state.isShow}
+          timeout={3000}
+          classNames="fade"
+          unmountOnExit
+          onEnter={()=>{}}>
           <div>react-transition-group</div>
         </CSSTransition>
         <button onClick={this.handleClick}>toggle</button>

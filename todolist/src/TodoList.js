@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import store from './store/index'
 import TodoItem from './TodoItem'
 import axios from 'axios'
 import './style.css'
@@ -6,13 +7,13 @@ import './style.css'
 class TodoList extends Component{
   constructor(){
     super()
-    this.state = {
-      inputValue: '',
-      list: []
-    }
+    this.state = store.getState()
+    console.log(this.state)
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleDel = this.handleDel.bind(this)
+    this.handleStoreChange = this.handleStoreChange.bind(this)
+    store.subscribe(this.handleStoreChange)
   }
 
   render(){
@@ -65,11 +66,14 @@ class TodoList extends Component{
   handleChange(e){
     // console.log(this.input.value)  // 通过ref获取值
     const {value} = e.target
-    this.setState(() => {
-      return {
-        inputValue: value
-      }
-    })
+    const action = {
+      type: 'change_input_value',
+      value
+    }
+    store.dispatch(action)
+  }
+  handleStoreChange(){
+    this.setState(store.getState())
   }
 
   handleSubmit(){
