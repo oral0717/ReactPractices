@@ -1,23 +1,25 @@
+import { CHANGE_INPUT_VALUE, ADD_TODO_ITEM, DEL_TODO_ITEM } from './actionTypes'
+
 const defaultState = {
   inputValue: '',
   list: []
 }
 
 export default (state = defaultState, action) => {
-  if (action.type === 'change_input_value'){
-    const newState = JSON.parse(JSON.stringify(state))
+  if (action.type === CHANGE_INPUT_VALUE){
+    const newState = JSON.parse(JSON.stringify(state)) // 对象深拷贝
     newState.inputValue = action.value
     return newState
   }
-  if (action.type === 'add_todo_item'){
+  if (action.type === ADD_TODO_ITEM){
     const newState = JSON.parse(JSON.stringify(state))
-    newState.inputValue = action.value.inputValue
-    newState.list = action.value.list
+    newState.list.push(state.inputValue)
+    newState.inputValue = ''
     return newState
   }
-  if (action.type === 'del_todo_item'){
+  if (action.type === DEL_TODO_ITEM){
     const newState = JSON.parse(JSON.stringify(state))
-    newState.list = action.value.list
+    newState.list.splice(action.index, 1)
     return newState
   }
   return state

@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import store from './store/index'
 import TodoItem from './TodoItem'
+import { getChangeInputAction, getAddItemAction, getDelItemAction } from './store/actionCreators'
 // import axios from 'axios'
 import './style.css'
 
@@ -64,11 +65,14 @@ class TodoList extends Component{
   }
   handleChange(e){
     // console.log(this.input.value)  // 通过ref获取值
-    const {value} = e.target
-    const action = {
-      type: 'change_input_value',
-      value
-    }
+
+    // const {value} = e.target
+    // const action = {
+    //   type: 'change_input_value',
+    //   value
+    // }
+    const action = getChangeInputAction(e.target.value)
+
     store.dispatch(action)
   }
   handleStoreChange(){
@@ -83,14 +87,15 @@ class TodoList extends Component{
     //     inputValue: ''
     //   }
     // })
-    const { inputValue, list} = this.state
-    const action = {
-      type: 'add_todo_item',
-      value: {
-        list: [...list, inputValue],
-        inputValue: ''
-      }
-    }
+    // const { inputValue, list} = this.state
+    // const action = {
+    //   type: 'add_todo_item',
+    //   value: {
+    //     list: [...list, inputValue],
+    //     inputValue: ''
+    //   }
+    // }
+    const action = getAddItemAction()
     store.dispatch(action)
   }
 
@@ -102,14 +107,15 @@ class TodoList extends Component{
     //     list: [...list]
     //   }
     // })
-    const { list } = this.state
-    list.splice(index, 1)
-    const action = {
-      type: 'del_todo_item',
-      value: {
-        list: [...list]
-      }
-    }
+    // const { list } = this.state
+    // list.splice(index, 1)
+    // const action = {
+    //   type: 'del_todo_item',
+    //   value: {
+    //     list: [...list]
+    //   }
+    // }
+    const action = getDelItemAction(index)
     store.dispatch(action)
   }
 
