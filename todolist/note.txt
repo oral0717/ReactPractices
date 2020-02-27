@@ -44,18 +44,21 @@ React                           vs  Vue
 复杂度高项目使用                       面向用户端复杂度不是特别高的项目适用
 
 P2-2react开发环境准备
-script引入.js文件来使用react(古老)
+  script引入.js文件来使用react(古老)
 
-通过脚手架工具来编码：webpack gulp grunt
+  通过脚手架工具来编码：webpack gulp grunt
 
-create-react-app //官方推荐脚手架工具,用于初级学习
-用法：
-npm i -g creat-react-app // 全局安装脚手架create-react-app
-create-react-app todolist // 创建并生成项目todolist
-npm run start // 启动
-todolist项目目录：manifest.json ,用户在手机上生成app图标的配置
-                serviceWorker.js ,PWA，断网时，用户可以离线访问本app
+  create-react-app //官方推荐脚手架工具,用于初级学习
+  用法：
+  npm i -g creat-react-app // 全局安装脚手架create-react-app
+  create-react-app todolist // 创建并生成项目todolist
+  npm run start // 启动或者 yarn start
+  todolist项目目录：manifest.json ,用户在手机上生成app图标的配置
+                serviceWorker.js ,PWA，用户第一次访问网页需要联网，下次断网时，用户可以离线访问本app
                 App.test.js ,自动化测试文件
+  备注：1.分支 feature-todolist-fixConfig,项目todolist执行了eject操作
+      2.用create-react-app创建的项目，import src以外的文件会失效，添加的特殊限制。它的实现是ModuleScopePlugin为了确保文件驻留在src/。
+      解除限制：从webpack配置文件执行eject和删除ModuleScopePlugin。
 
 P3-1
   1.import React, { Component, Fragment } from 'react'
@@ -173,9 +176,35 @@ https://reactcommunity.org/react-transition-group/css-transition
 P5-1Redux
 把所有的数据放入store中管理，一个组件改变了store中的数据，
 其他组件感知到store数据中的变化后，取到新数据并更新
+使用redux-devtool配置：
+const store = createStore(
+  reducer,
+  新增window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+)
 
+P6-4使用Redux-thunk中间件
+  1.把异步请求或复杂逻辑放到action中处理
+    使用方法：yarn add redux-thunk  /  npm install redux-thunk
+    在store/index.js配置好使用thunk，使用thunk时，使action不只是个对象，可以是个函数了，函数参数含有dispatch
+    异步请求放在actionCreators.js中，不再放在组件生命周期函数中
 
+P6-5什么是中间件，是action与store之间，即redux的中间件
+  redux中间件是action与store之间，对dispatch()方法的封装和升级,之前dispatch只能接受一个对象，用中间件可是接受函数
+  使用中间件后，如果dispatch接受到的参数是对象，则dispatch会将对象直接传给store
+  如果dispatch接受到的是函数，中间件会先执行这个函数，执行完以后，需要调用store时再调用store
 
+  redux-logger,派发action时，把action打印在控制台里
+  redux-thunk,把异步操作放入action里操作，异步代码拆分管理
+  redux-saga,单独把异步逻辑拆分出来放到一个文件里管理，异步代码拆分管理
+
+P6-6 redux-saga入门
+
+////////ant-design
+1.github上寻找issue解决问题
+https://ant.design/docs/react/introduce-cn
+
+2.List.Item加入onClick
+<List.Item onClick={()=>(this.handleDelClick(index))}></List.Item>
 
 
 
@@ -192,7 +221,7 @@ P5-1Redux
 
 总结：
 1.性能提升：
-  1.在constructor中绑定好方法的this
+  1.在constructor中绑定好方法的this,constructor方法只执行一次
   2.setState传入函数，异步方式修改state，可以合并多次setState
   3.shouldComponentUpdate,排除不需要重新渲染的时机
   4.要使用稳定的值做key
