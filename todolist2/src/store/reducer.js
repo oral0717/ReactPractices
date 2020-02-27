@@ -1,8 +1,7 @@
-import { CHANGE_INPUT_VALUE,ADD_TODO_ITEM,DEL_TODO_ITEM,GET_TODO_LIST } from './actionTypes'
-// import axios from 'axios'
+import { CHANGE_INPUT_VALUE,ADD_TODO_ITEM,DEL_TODO_ITEM,INIT_TODO_LIST } from './actionTypes'
 const defaultState = {
   inputValue: '',
-  list: [1,2]
+  list: []
 }
 
 export default (state = defaultState, action) => {
@@ -14,6 +13,7 @@ export default (state = defaultState, action) => {
 
   if (action.type === ADD_TODO_ITEM){
     const newState = JSON.parse(JSON.stringify(state))
+    newState.inputValue = ''
     newState.list.push(state.inputValue)
     return newState
   }
@@ -24,7 +24,7 @@ export default (state = defaultState, action) => {
     return newState
   }
 
-  if (action.type === GET_TODO_LIST){
+  if (action.type === INIT_TODO_LIST){
     const newState = JSON.parse(JSON.stringify(state))
     newState.list = [...newState.list, ...action.data]
     return newState
