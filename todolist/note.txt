@@ -198,6 +198,37 @@ P6-5什么是中间件，是action与store之间，即redux的中间件
   redux-saga,单独把异步逻辑拆分出来放到一个文件里管理，异步代码拆分管理
 
 P6-6 redux-saga入门
+  yarn add redux-saga
+  修改store/index.js
+    import { createStore, applyMiddleware, compose } from 'redux'
+    import createSagaMiddleware from 'redux-saga'
+    import reducer from './reducer.js'
+    import todoSaga from './sagas'
+    const sagaMiddleware = createSagaMiddleware()
+    const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
+      window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({}) :  //启用redux-devtools
+      compose;
+    const enhancer = composeEnhancers(
+      applyMiddleware(sagaMiddleware)
+    );
+    const store = createStore(reducer, enhancer)
+    sagaMiddleware.run(todoSaga)  // 运行saga
+    export default store
+  新增store/saga.js   //里面的内容只能是generater函数, 写入异步函数
+    function* todoSaga() {}
+    export default todoSaga;
+
+  redux-saga vs redux-thunk特征：
+    redux-saga有很多API, redux-thunk的api少，比saga容易，只是使action返回的不仅是个对象，还可以是个函数
+    redux-saga可以把异步处理或复杂逻辑完全拆出来放入一个文件里单独管理，处理非常大型项目优于redux-thunk
+
+
+
+
+
+
+
+
 
 ////////ant-design
 1.github上寻找issue解决问题
