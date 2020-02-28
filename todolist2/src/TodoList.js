@@ -1,22 +1,42 @@
 import React, { Component, Fragment } from 'react'
+import { connect } from 'react-redux'
 import { Input, Button, List, Typography } from 'antd'
-import store from './store'
-import { changeInputValue, addTodoItem, delTodoItem,getTodoList} from './store/actionCreaters'
+import { changeInputValue, addTodoItem, delTodoItem} from './store/actionCreaters'
 import "antd/dist/antd.css"
 
-class App extends Component {
-  constructor(props){
-    super(props)
-    this.state = store.getState()
-    this.handleInputChange = this.handleInputChange.bind(this)
-    this.handleStoreChange = this.handleStoreChange.bind(this)
-    this.handleAddClick = this.handleAddClick.bind(this)
-    this.handleDelClick = this.handleDelClick.bind(this)
-    store.subscribe(this.handleStoreChange)
-  }
-
+const App = (props) => {
+  const { inputValue, list, changeInputValue, addTodoItem, delTodoItem } = props
+  return (
+    <Fragment>
+      <div style={{margin:'50px'}}>
+        <Input
+          size="large"
+          placeholder="添加项目"
+          style={{width:'400px',marginRight:'10px'}}
+          value={inputValue}
+          onChange={changeInputValue}
+        />
+        <Button
+          type="primary"
+          size="large"
+          onClick={addTodoItem}>添加</Button>
+      </div>
+      <List
+        bordered
+        dataSource={list}
+        renderItem={(item,index) => (
+          <List.Item onClick={()=>(delTodoItem(index))}>
+            <Typography.Text mark>[项目]</Typography.Text> {item}
+          </List.Item>
+        )}
+        style={{margin: '0 50px', width:'400px'}}
+      />
+    </Fragment>
+  )
+}
+class App2 extends Component {
   render(){
-    const { inputValue, list } = this.state
+    const { inputValue, list, changeInputValue, addTodoItem, delTodoItem } = this.props
     return (
       <Fragment>
         <div style={{margin:'50px'}}>
@@ -25,18 +45,18 @@ class App extends Component {
             placeholder="添加项目"
             style={{width:'400px',marginRight:'10px'}}
             value={inputValue}
-            onChange={this.handleInputChange}
+            onChange={changeInputValue}
           />
           <Button
             type="primary"
             size="large"
-            onClick={this.handleAddClick}>添加</Button>
+            onClick={addTodoItem}>添加</Button>
         </div>
         <List
           bordered
           dataSource={list}
           renderItem={(item,index) => (
-            <List.Item onClick={()=>(this.handleDelClick(index))}>
+            <List.Item onClick={()=>(delTodoItem(index))}>
               <Typography.Text mark>[项目]</Typography.Text> {item}
             </List.Item>
           )}
@@ -45,29 +65,29 @@ class App extends Component {
       </Fragment>
     )
   }
-  componentDidMount(){
-    const action = getTodoList()
-    store.dispatch(action)
-  }
+}
 
-  handleStoreChange(){
-    this.setState(store.getState())
-  }
-
-  handleInputChange(e){
-    const action = changeInputValue(e.target.value)
-    store.dispatch(action)
-  }
-
-  handleAddClick(){
-    const action = addTodoItem()
-    store.dispatch(action)
-  }
-
-  handleDelClick(index){
-    console.log(index)
-    const action = delTodoItem(index)
-    store.dispatch(action)
+const mapStateToProps = (state, props) => {
+  const { inputValue, list } = state
+  return {
+    inputValue,
+    list
   }
 }
-export default App
+
+const mapDispatchToProps = (dispatch)=>{
+  return {
+    changeInputValue(e){
+      dispatch(changeInputValue(e.target.value))
+    },
+    addTodoItem(){
+      dispatch(addTodoItem())
+    },
+    delTodoItem(index){
+      dispatch(delTodoItem(index))
+    }
+  }
+}
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(App)
