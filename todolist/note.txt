@@ -78,7 +78,7 @@ P3-4 JSX语法补充
 P3-5拆分组件与组件之间的传值
   1.
   constructor(props){
-    super(props)
+    super(props) //this.props
     this.handleDel = this.handleDel.bind(this) //性能更好，最好不要把绑定this的放在组件上，原因？
   }
   2.子组件调用父组件的某个方法，一定要注意方法的this绑定
@@ -222,6 +222,39 @@ P6-6 redux-saga入门
     redux-saga有很多API, redux-thunk的api少，比saga容易，只是使action返回的不仅是个对象，还可以是个函数
     redux-saga可以把异步处理或复杂逻辑完全拆出来放入一个文件里单独管理，处理非常大型项目优于redux-thunk
 
+P6-8 react-redux的使用
+  安装：yarn add react-redux
+  使用：
+  import { Provider } from 'react-redux'
+
+  ReactDOM.render(
+    <Provider store={store}> // Provider使得所有组件可以连接到store
+      <TodoList />
+    </Provider>,
+    document.getElementById('root')
+  );
+  子组件获取store的内容：
+    1.没有react-redux时，是通过const store = store.getState()
+    2.用了react-redux,通过connect方法获取
+      import {connect} from 'react-redux'
+
+      const mapStateToProps = (state) => {//state即store里的数据,props即本组件可以用的数据
+        return {
+          inputValue: state.inputValue,
+          list: state.list
+        }
+      }
+      mapDispatchToProps = (dispatch) => {
+        changeInputValue(e){
+          dispatch(changeInputValue(e.target.value))
+        }
+      }
+
+      // 经过connect连接的组件导出的内容一定是个容器组件
+      export default connect( // 让App和store做链接,按照规则mapStateToProps，
+        mapStateToProps,
+        mapDispatchToProps
+      )(App)
 
 
 
