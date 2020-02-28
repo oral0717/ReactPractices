@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from 'react'
 import { Input, Button, List, Typography } from 'antd'
+// import axios from 'axios'
 import store from './store'
-import { changeInputValue, addTodoItem, delTodoItem,getTodoList} from './store/actionCreaters'
+import { getTodoList,changeInputValue, addTodoItem, delTodoItem,initTodoList} from './store/actionCreaters'
 import "antd/dist/antd.css"
 
 class App extends Component {
@@ -47,7 +48,13 @@ class App extends Component {
   }
   componentDidMount(){
     const action = getTodoList()
+    console.log(1111,action)
     store.dispatch(action)
+    // axios.get('/api/todolist').then((res)=>{
+    //   const data = res.data
+    //   const action = initTodoList(data)
+    //   store.dispatch(action)
+    // })
   }
 
   handleStoreChange(){
@@ -65,7 +72,6 @@ class App extends Component {
   }
 
   handleDelClick(index){
-    console.log(index)
     const action = delTodoItem(index)
     store.dispatch(action)
   }
