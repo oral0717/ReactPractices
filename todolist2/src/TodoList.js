@@ -48,7 +48,6 @@ class App extends Component {
   }
   componentDidMount(){
     const action = getTodoList()
-    console.log(1111,action)
     store.dispatch(action)
     // axios.get('/api/todolist').then((res)=>{
     //   const data = res.data

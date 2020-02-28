@@ -9,7 +9,7 @@ function* getTodoList(){
     const action = initTodoList(res.data)
     yield put(action)
   }catch(e){
-    console.log('网络请求失败')
+    console.log('网络请求失败',e.message)
   }
 
   // axios.get('/api/todolist').then((res)=>{
