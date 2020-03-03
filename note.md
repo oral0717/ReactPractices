@@ -297,7 +297,13 @@ const store = createStore(
   只有render函数的普通组件可以转为无状态组件
   性能比普通组件好，因为无状态组件它只是个函数，普通组件需要执行各种生命周期函数
 
-
+## P7-1
+  #### 样式处理
+  1.import '.index.css'// 在组件中直接引入css文件，会使项目所有组件都生效，引起样式冲突，因此需要使用第三方包styled-components
+  2.yarn add styled-components // 使组件的样式只对本组件生效,（自认为不好用）
+    样式文件要改成.js
+    import { injectGlobal} from 'styled-components'
+    injectGlobal`里面放入全局样式`;//如里面放入全局reset.css的内容
 
 
 
