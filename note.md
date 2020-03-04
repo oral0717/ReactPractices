@@ -310,4 +310,47 @@ const store = createStore(
 
 
 
+## JSX的坑
+  1.注释
+  2.class=>className, for => htmlFor
+  3.dangerouslySetInnerHTML={{__html: xx}}, 插入html
+## Simple React Snippets
+  imrc  // import React, { Component } from 'react'
+  cc // 类初始代码
+  很多简写可以查看插件文档
+## 生命周期优化代码渲染
+  shouldComponentUpdate(nextProps, nextState){}
+## React-Router
+  1.安装，yarn add react-router-dom
+  2.动态传值：（如列表详情页url上加id）<Route path="/list/:id" component={List}></Route>
+    设置规则
+    传递值
+    接受值
+    显示内容
+  3.路由重定向，重定向后不能返回
+    1.如何利用标签跳转，
+    import {Redirector} from 'react-router-dom'
+    <Redirector to=''/>
+    2.编程，利用history来改变
+    constructor(props){
+      super(props)
+      this.props.history.push('/home/')
+    }
+  4.嵌套路由
+
+## 打包和上线
+  1.绝对路径一定为相对路径
+  2.npm run build,打包
+
+
+###### todo
+1.哪些包需要在生产环境中安装的
+  react react-dom axios react-router-dom
+2.redux-thunk, redux-saga工作流程？中间件是什么
+3.react-router v3与v4区别
+4.
+import {BrowserRouter, Route, Link} from 'react-router-dom'// v5
+import {Router} from 'react-router'// v2
+
+
 
