@@ -281,6 +281,7 @@ const store = createStore(
 
 ## 注意
 1.项目目录规则，src有什么特殊性: `create-react-app`脚手架限制了目录src,不允许src里文件访问src外文件
+只有src根目录下的文件会被webpack编译，所以必须把文件放在src根目录下，否则不会识别。
 
 # 总结：
 1.性能提升：
@@ -337,6 +338,19 @@ const store = createStore(
       this.props.history.push('/home/')
     }
   4.嵌套路由
+## React Hooks
+  1.useState()不能用于条件语句中
+  2.useEffect()代替生命周期函数 componentDidMount(),componentDidUpdate()
+  3.在componentWillUnmount()销毁计时器
+    useEffect(()=>{}, [])// 第二个参数时空数组时，只有当所在组件销毁时，第一个参数才执行，第二个参数里传入参数时，参数改变时，第一个参数函数执行
+    销毁计时器// 通过路由改变达到组件销毁效果
+    react-router-dom,
+  4.useContext() 用于父子传值问题
+    import React, {createContext, useContext} from 'react'
+  5.useReducer()
+  6.useMemo(),  vs shouldComponentUpdate()
+  7.useRef()
+  8.自定义Hooks
 
 ## 打包和上线
   1.绝对路径一定为相对路径
@@ -351,6 +365,10 @@ const store = createStore(
 4.
 import {BrowserRouter, Route, Link} from 'react-router-dom'// v5
 import {Router} from 'react-router'// v2
-
+5.数组解构
+const [count, setCount] = useState(0)
+let _useState = useState(0)
+let count = _useState[0]
+let setCount = _useState[1]
 
 
