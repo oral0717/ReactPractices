@@ -4,12 +4,12 @@ module.exports = {
   target: 'node',
   mode: 'development',
   entry: {
-    server: path.join(__dirname, '../server/client/server-entry.js')
+    app: path.join(__dirname, '../server/client/server-entry.js')
   },
   output: {
     filename: 'server-entry.js',
     path: path.join(__dirname, '../dist'),
-    publicPath: '',
+    publicPath: '/public/',
     libraryTarget: 'commonjs2'
   },
   module: {
