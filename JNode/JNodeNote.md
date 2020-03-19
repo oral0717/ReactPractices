@@ -607,8 +607,40 @@ touch nodemon.json
 
 //////////////////end react+webpack基础配置
 
+## P3-2路由配置
+1. 指定哪些文件被引入时不用写后缀名：
+    在webpack.config.base.js里加上
+    resolve: {
+        extensions: ['.js','.jsx']
+    }
+2. <Redirect from="" to="">路由重定向,不推荐使用，在Switch中才使用
+3. <Switch></Switch> 匹配第一个路由，下面的路由不再寻找
+4. <StaticRouter> 服务端渲染用到
 
-
+## P3-3 store配置
+MVC模式，view无法检测到M更新，会使MV脱离
+使用Mobx
+  ### 修改.babelrc
+	{
+		"presets": [
+			"stage-1",  // 增加此项，高阶，mobx不是es6的语法,是es next的
+		],
+		"plugins":[
+			"transform-decorators-legacy", // 增加此项，且此项要位于plugins的以第一项，否则出现问题
+		]
+	}
+ps: "stage-1"“transform-decorators-legacy”在babel7上弃用，用一下来代替：
+{
+  "plugins": [
+    ["@babel/plugin-proposal-decorators", { "legacy": true }],
+    "@babel/plugin-proposal-export-default-from",
+    "@babel/plugin-proposal-logical-assignment-operators",
+    ["@babel/plugin-proposal-optional-chaining", { "loose": false }],
+    ["@babel/plugin-proposal-pipeline-operator", { "proposal": "minimal" }],
+    ["@babel/plugin-proposal-nullish-coalescing-operator", { "loose": false }],
+    "@babel/plugin-proposal-do-expressions"
+  ]
+}
 
 
 

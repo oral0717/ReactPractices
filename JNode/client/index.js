@@ -1,14 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
-import App from './App'
+import { BrowserRouter } from 'react-router-dom'
+import App from './views/App'
 
 const root = document.getElementById('root')
 
 const render = (Component) => {
   ReactDOM.render(
     <AppContainer>
-      <Component/>
+      <BrowserRouter>
+        <Component/>
+      </BrowserRouter>
     </AppContainer>,
     root
   )
@@ -17,8 +20,8 @@ const render = (Component) => {
 render(App)
 
 if (module.hot){
-  module.hot.accept('./App.js', ()=>{
-    const NextApp = require('./App.js').default
+  module.hot.accept('./views/App.js', ()=>{
+    const NextApp = require('./views/App.js').default
     render(NextApp)
   })
 }
