@@ -15,7 +15,7 @@ const config = webpackMerge(webpackConfigBase, {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, '../src/index.html')
+      template: path.join(__dirname, '../client/template.html')
     })
   ]
 })
@@ -29,7 +29,7 @@ if (isDev) {
   }
   config.devServer = {
     host: '0.0.0.0',
-    port: 8888,
+    port: 8889,
     contentBase: path.join(__dirname, '../dist'),// 告诉服务器从哪里提供内容
     publicPath: '/public',// 此路径下的打包文件可在浏览器中访问。
     historyApiFallback: { // 任意的 404 响应都可能需要被替代为 index.html

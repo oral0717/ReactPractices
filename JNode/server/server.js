@@ -2,11 +2,14 @@ const express = require('express')
 const ReactDomServer = require('react-dom/server')
 const fs = require('fs')
 const path = require('path')
+const favicon = require('serve-favicon')
 
-const isDev = process.env.NODE_ENV = 'development'
+const isDev = process.env.NODE_ENV === 'development'
 
 const app = express()
 const PORT = 3000
+
+app.use(favicon(path.join(__dirname, '../favicon.ico')))
 
 if (!isDev){ // 线上环境
   const serverEntry = require('../dist/server-entry').default

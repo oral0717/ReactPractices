@@ -3,14 +3,14 @@ const ReactDomServer = require('react-dom/server')
 const path = require('path')
 const MemoryFs = require('memory-fs')
 const webpack = require('webpack')
+const proxy = require('http-proxy-middleware')
 const serverConfig = require('../../build/webpack.config.server')
-
 
 const mfs = new MemoryFs()
 
 const getTemplate =()=>{
   return new Promise((resolve, reject)=>{
-    axios.get('http://localhost:8888/public/index.html')
+    axios.get('http://localhost:8889/public/index.html')
       .then(res => {
         resolve(res.data)
       })
@@ -41,10 +41,14 @@ serverCompiler.watch({},(err, stats)=>{ // stats是打包时输出的信息
 })
 
 module.exports = function(app) {
+  app.use('/public', proxy.createProxyMiddleware({
+    target: 'http://localhost:8889'
+  }))
+
   app.get('*', function(req, res) {
     getTemplate().then((template)=>{
       const content = ReactDomServer.renderToString(serverBundle)
-      res.sent(template.replace('<!--app-->', content))
+      res.send(template.replace('<!--app-->', content))
     })
   })
 }
