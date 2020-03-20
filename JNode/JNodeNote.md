@@ -633,6 +633,7 @@ ps: "stage-1"“transform-decorators-legacy”在babel7上弃用，用一下来�
 {
   "plugins": [
     ["@babel/plugin-proposal-decorators", { "legacy": true }],
+		["@babel/plugin-proposal-class-properties"]
     "@babel/plugin-proposal-export-default-from",
     "@babel/plugin-proposal-logical-assignment-operators",
     ["@babel/plugin-proposal-optional-chaining", { "loose": false }],
@@ -646,8 +647,15 @@ ps: "stage-1"“transform-decorators-legacy”在babel7上弃用，用一下来�
 
 ### todo
 1. 代理后有点问题
-
-
+2. 使用mobx
+/Users/oral/github/ReactPractices/JNode/client/store/app-state.js: Support for the experimental syntax 'classProperties' isn't currently enabled (4:21):
+需要配置babel.config.js
+"plugins": [
+    ['@babel/plugin-proposal-decorators', {'legacy': true}],
+    ['@babel/plugin-proposal-class-properties'],
+  ]
+安装包：cnpm i @babel/plugin-proposal-decorators @babel/plugin-proposal-class-properties -D
+cnpm i mobx-react@5
 
 
 
