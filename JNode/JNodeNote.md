@@ -620,42 +620,38 @@ touch nodemon.json
 ## P3-3 store配置
 MVC模式，view无法检测到M更新，会使MV脱离
 使用Mobx
-  ### 修改.babelrc
-	{
-		"presets": [
-			"stage-1",  // 增加此项，高阶，mobx不是es6的语法,是es next的
-		],
-		"plugins":[
-			"transform-decorators-legacy", // 增加此项，且此项要位于plugins的以第一项，否则出现问题
-		]
-	}
-ps: "stage-1"“transform-decorators-legacy”在babel7上弃用，用一下来代替：
-{
-  "plugins": [
-    ["@babel/plugin-proposal-decorators", { "legacy": true }],
-		["@babel/plugin-proposal-class-properties"]
-    "@babel/plugin-proposal-export-default-from",
-    "@babel/plugin-proposal-logical-assignment-operators",
-    ["@babel/plugin-proposal-optional-chaining", { "loose": false }],
-    ["@babel/plugin-proposal-pipeline-operator", { "proposal": "minimal" }],
-    ["@babel/plugin-proposal-nullish-coalescing-operator", { "loose": false }],
-    "@babel/plugin-proposal-do-expressions"
-  ]
-}
-
-
-
-### todo
-1. 代理后有点问题
-2. 使用mobx
-/Users/oral/github/ReactPractices/JNode/client/store/app-state.js: Support for the experimental syntax 'classProperties' isn't currently enabled (4:21):
+  ### 删除.babelrc，改用babel.config.js，其实使用.babelrc也可以
+	/Users/oral/github/ReactPractices/JNode/client/store/app-state.js: Support for the experimental syntax 'classProperties' isn't currently enabled (4:21):
 需要配置babel.config.js
 "plugins": [
     ['@babel/plugin-proposal-decorators', {'legacy': true}],
     ['@babel/plugin-proposal-class-properties'],
   ]
 安装包：cnpm i @babel/plugin-proposal-decorators @babel/plugin-proposal-class-properties -D
-cnpm i mobx-react@5
+cnpm i mobx-react@5   // 最新版本6+
 
+## P3-4 Cnode接口代理实现
+需要安装的包：
+body-parser //转化请求的body,转成json, bodyParser.json() ,
+    app.use(bodyParser.json()) // 将body json请求格式数据转化为req.body的数据
+    app.use(bodyParser.urlencoded({extended:false})) //对应表单请求的不同类型数据也转成到req.body上
+express-session //存放服务端的session
+    app.use(session({
+        maxAge: 10*60*1000, //设置有效时间
+        name: 'tid',//session放一个cookie id到浏览器中，这是cookie id名字
+        resave: false, //每次请求是否要生成一份新cookie id
+        saveUninitialized: false,
+        secret: 'react cnode class'// 用配置的字符串加密cookie保证cookie安全，不被解密
+    }))
+query-string
+
+
+### todo
+1. 代理后有点问题
+2. webpack里entry下的vendor？
+
+2. 配置样式
+  1. 使用loaders时，不再允许省略'-loader'后缀
+	2. cnpm i postcss -D
 
 

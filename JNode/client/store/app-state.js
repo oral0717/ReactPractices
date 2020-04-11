@@ -9,13 +9,16 @@ export class AppState {
   @action add(){
     this.count += 1
   }
+  @action changeName(value){
+    this.name = value
+  }
 }
 
 const appState = new AppState()
 
-// autorun(()=>{
-//   console.log(appState.msg)
-// })
+autorun(()=>{
+  console.log(appState.msg)
+})
 
 // setInterval(()=>{
 //   appState.add()
