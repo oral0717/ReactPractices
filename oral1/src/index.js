@@ -66,6 +66,7 @@ class Game extends React.Component {
     }
   }
   render() {
+    const xss= '<h1>xssh1</h1>'
     const { history } = this.state
     const current = history[this.state.stepNumber]
     console.log('current', current)
@@ -100,6 +101,7 @@ class Game extends React.Component {
         <div className="game-info">
           <div>{status}</div>
           <ol>{moves}</ol>
+          <p>{xss}</p>
         </div>
       </div>
     );
