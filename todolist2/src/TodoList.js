@@ -1,8 +1,14 @@
 import React, { Component, Fragment } from 'react'
 import { Input, Button, List, Typography } from 'antd'
-import store from './store'
-import { changeInputValue, addTodoItem, delTodoItem,getTodoList} from './store/actionCreaters'
 import "antd/dist/antd.css"
+
+import store from './store'
+import {
+  changeInputValue,
+  addTodoItem,
+  delTodoItem,
+  getTodoList
+} from './store/actionCreaters'
 
 class App extends Component {
   constructor(props){
@@ -16,6 +22,7 @@ class App extends Component {
   }
 
   render(){
+    console.log(this.state)
     const { inputValue, list } = this.state
     return (
       <Fragment>

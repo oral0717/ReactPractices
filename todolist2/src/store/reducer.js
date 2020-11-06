@@ -1,4 +1,10 @@
-import { CHANGE_INPUT_VALUE,ADD_TODO_ITEM,DEL_TODO_ITEM,INIT_TODO_LIST } from './actionTypes'
+import {
+  CHANGE_INPUT_VALUE,
+  ADD_TODO_ITEM,
+  DEL_TODO_ITEM,
+  INIT_TODO_LIST
+} from './actionTypes'
+
 const defaultState = {
   inputValue: '',
   list: []
