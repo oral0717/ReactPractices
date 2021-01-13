@@ -1,17 +1,17 @@
 import _ from 'lodash'
-import './style.css'
-import icoFavicon from './images/favicon.ico'
+import printMe from './print.js'
 
 function component() {
   const element = document.createElement('div')
+  const btn = document.createElement('button')
+
   // lodash，现在通过一个 script 引入
   element.innerHTML = _.join(['Hello', 'webpack'], ' ')
-  // 加入样式
-  element.classList.add('hello');
-  // 加入图片
-  const myIco = new Image()
-  myIco.src = icoFavicon
-  element.appendChild(myIco)
+
+  btn.innerHTML = 'Click me!'
+  btn.onclick = printMe
+
+  element.appendChild(btn)
 
   return element
 }
