@@ -1,3 +1,3 @@
 export default function printMe() {
-  conole.log('print.js')
+  console.log('print2.js')
 }
