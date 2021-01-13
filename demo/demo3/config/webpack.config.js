@@ -18,6 +18,7 @@ module.exports = {
     // publicPath: '/'
   },
   plugins: [
+    // 对于 CleanWebpackPlugin 的 v2 versions 以下版本，使用 new CleanWebpackPlugin(['dist/*'])
     new CleanWebpackPlugin({
       cleanStaleWebpackAssets: false
     }),
@@ -28,6 +29,10 @@ module.exports = {
   ],
   module: {
     rules: [
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
     ]
   }
 }

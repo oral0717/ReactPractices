@@ -1,12 +1,13 @@
 import _ from 'lodash'
 import printMe from './print.js'
+import './style.css'
 
 function component() {
   const element = document.createElement('div')
   const btn = document.createElement('button')
 
   // lodash，现在通过一个 script 引入
-  element.innerHTML = _.join(['Hello1', 'webpack2'], ' ')
+  element.innerHTML = _.join(['Hello1', 'webpack21'], ' ')
 
   btn.innerHTML = 'Click me!'
   btn.onclick = printMe
