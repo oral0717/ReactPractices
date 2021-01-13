@@ -8,7 +8,8 @@
     "watch": "webpack --watch",
     "build": "webpack --config ./config/webpack.config.js",
     "start:dev": "webpack serve --open --config ./config/webpack.config.js",
-    "middlewareServer:dev": "nodemon ./server/devMiddlewareServer.js"
+    "middlewareServer:dev": "nodemon ./server/devMiddlewareServer.js",
+    "devServer:dev": "nodemon ./server/devServer.js"
   },
   "keywords": [],
   "author": "",
