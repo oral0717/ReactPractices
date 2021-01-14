@@ -142,6 +142,13 @@ if (module.hot) {
 
 ### 代码分离
 分支：demo/demo3/F0001-webpack-codeSplitting
+代码分离方法：
+入口起点：使用 entry 配置手动地分离代码。
+防止重复：使用 Entry dependencies 或者 SplitChunksPlugin 去重和分离 chunk。
+动态导入：通过模块的内联函数调用来分离代码。
+todo: 实战
+
+### 环境变量设置
 
 
 
