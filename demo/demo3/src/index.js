@@ -1,10 +1,29 @@
 import _ from 'lodash'
+import printMe from './print.js'
+import './style.css'
 
 function component() {
   const element = document.createElement('div')
+  const btn = document.createElement('button')
+
   // lodash，现在通过一个 script 引入
-  element.innerHTML = _.join(['Hello', 'webpack'], ' ')
+  element.innerHTML = _.join(['Hello1', 'webpack21'], ' ')
+
+  btn.innerHTML = 'Click me!'
+  btn.onclick = printMe
+
+  element.appendChild(btn)
+
   return element
 }
+let element = component(); // 存储 element，以在 print.js 修改时重新渲染
+document.body.appendChild(element);
 
-document.body.appendChild(component())
+if (module.hot) {
+  module.hot.accept('./print.js', function() {
+    console.log('Accepting the updated printMe module!');
+    document.body.removeChild(element);
+    element = component(); // 重新渲染 "component"，以便更新 click 事件处理函数
+    document.body.appendChild(element);
+  })
+}
