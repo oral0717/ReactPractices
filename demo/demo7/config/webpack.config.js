@@ -29,15 +29,20 @@ module.exports = {
   },
   output: {
     filename: '[name]-[contenthash].js',
-    path: path.resolve(__dirname, '../dist')
+    path: path.resolve(__dirname, '../dist'),
+    publicPath: '/assets/'
+  },
+  devServer: {
+    publicPath: '/assets/'
   },
   plugins: [
     new webpack.ProgressPlugin(),
     new MiniCssExtractPlugin({ filename:'main.[contenthash].css' }),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      title: 'xx',
-      filename: '../public/index.html'
+      title: 'xx3 ',
+      // filename: '../public/index.html'
+      filename: '../dist/index.html'
     })
   ],
 
@@ -65,10 +70,5 @@ module.exports = {
         }
       }]
     }]
-  },
-
-  devServer: {
-    open: true,
-    host: 'localhost'
   }
 }

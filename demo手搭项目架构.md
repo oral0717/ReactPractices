@@ -1,4 +1,5 @@
 <!-- 项目目录 demo -->
+[https://webpack.docschina.org/guides/getting-started/]
 demo4 支持PWA，即渐进式web app，使web app具有原生app相近的用户体验
 demo5 多bundles,多入口，默认dist，支持es6
       不支持PWA
@@ -65,7 +66,7 @@ module.exports = {
     path: path.resolve(__dirname, '../dist')
   },
   plugins: [
-    new CleanWebpackPlugin(), // 删除/dist文件夹
+    new CleanWebpackPlugin(), // 删除dist文件夹
     new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }), // 不想在 watch 触发增量构建后删除 index.html 文件
     new HtmlWebpackPlugin({
       title: '管理输出',
@@ -79,6 +80,7 @@ module.exports = {
 ### webpack开发环境
 分支：demo/demo3/webpack-project-development
 ```js
+// webpack-dev-server 在编译之后不会写入到任何输出文件。而是将 bundle 文件保留在内存中，然后将它们 serve 到 server 中，就好像它们是挂载在 server 根路径上的真实文件一样。如果你的页面希望在其他不同路径中找到 bundle 文件，则可以通过 dev server 配置中的 publicPath 选项进行修改。
 // 自动编译代码：webpack-dev-server, npm install webpack-dev-server --save-dev
 module.export = {
   mode: 'development',
