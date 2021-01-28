@@ -28,7 +28,7 @@ module.exports = {
     pageTwo: './src/scripts/pageTwo.js'
   },
   output: {
-    filename: '[name]-[hash].js',
+    filename: '[name]-[contenthash].js',
     path: path.resolve(__dirname, '../dist')
   },
   plugins: [
