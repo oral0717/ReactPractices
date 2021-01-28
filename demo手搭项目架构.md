@@ -1,4 +1,12 @@
 <!-- 项目目录 demo -->
+demo4 支持PWA，即渐进式web app，使web app具有原生app相近的用户体验
+demo5 多bundles,多入口，默认dist，支持es6
+      不支持PWA
+      不支持webpack-dev-server
+      未指定样式语言
+demo6 多bundles,多入口，默认dist，支持es6
+      指定sass,webpack-dev-server,简化创建的HTML文件
+      不支持PWA
 ### 初级webpack项目
 分支：demo/demo3/webpack-project-init
 1. 新建目录 demo1
@@ -25,14 +33,18 @@ npm run build
 应保证 loader 的先后顺序：'style-loader' 在前，而 'css-loader' 在后。如果不遵守此约定，webpack 可能会抛出错误。 -->
 1. npm install --save-dev style-loader css-loader
 2. webpack.config.js增加配置
-modules: {
-  rules: [
-    {
-      test: /\.css$/i,
-      use: ['style-loader', 'css-loader'],
-    }
-  ]
+```js
+module.exports = {
+  modules: {
+    rules: [
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+      }
+    ]
+  }
 }
+```
 
 ### webpack管理输出
 分支：demo/demo3/webpack-project-output
@@ -54,22 +66,16 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(), // 删除/dist文件夹
+    new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }), // 不想在 watch 触发增量构建后删除 index.html 文件
     new HtmlWebpackPlugin({
       title: '管理输出',
       filename: '../public/index.html'
     }),
   ],
 }
+// 通过命令删除 "clean": "rm -rf dist/*",  yarn clean 删除dist目录
 ```
 
-``` js
-// 删除/dist文件夹 清理插件 clean-webpack-plugin
-// npm install --save-dev clean-webpack-plugin
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-plugins: [
-  new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }), // 不想在 watch 触发增量构建后删除 index.html 文件
-]
-```
 ### webpack开发环境
 分支：demo/demo3/webpack-project-development
 ```js
@@ -149,9 +155,13 @@ if (module.hot) {
 todo: 实战
 
 ### 环境变量设置
+webpack 命令行 环境配置 的 --env 参数，可以允许你传入任意数量的环境变量。而在 webpack.config.js 中可以访问到这些环境变量。
+--env production
+--env NODE_ENV=local（NODE_ENV 通常约定用于定义环境类型）
 
-
-
+npx webpack --env NODE_ENV=local --env production --progress
+如果设置 env 变量，却没有赋值，--env production 默认表示将 env.production 设置为 true。还有许多其他可以使用的语法。
+通常，module.exports 指向配置对象。要使用 env 变量，你必须将 module.exports 转换成一个函数：
 
 
 
