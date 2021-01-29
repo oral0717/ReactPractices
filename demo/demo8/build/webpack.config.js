@@ -30,7 +30,8 @@ module.exports = {
     new MiniCssExtractPlugin({ filename:'style.[contenthash].css' }),
     new HtmlWebpackPlugin({
       title: 'react项目1',
-      filename: 'index.html'
+      filename: 'index.html',
+      template: path.join(__dirname,'../src/scripts/template.html')
     })
   ],
   output: {
