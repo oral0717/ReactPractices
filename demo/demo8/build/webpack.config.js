@@ -38,13 +38,14 @@ module.exports = {
     filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, '../dist')
   },
+  resolve: {
+    extensions: ['.js', '.jsx']
+  },
   module: {
     rules: [{
       test: /\.(js|jsx)$/,
       exclude: /node_modules/,
-      enforce: 'pre',
-      include: [path.resolve(__dirname, 'src/scripts')],
-      loader: 'babel-loader'
+      use: 'babel-loader'
     }, {
       test: /.(sa|sc|c)ss$/,
 
