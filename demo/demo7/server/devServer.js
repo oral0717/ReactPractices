@@ -15,3 +15,4 @@ const server = new webpackDevServer(compiler, options);
 server.listen(5001, 'localhost', () => {
   console.log('dev server listening on port 5001');
 });
+console.log('xxxxxx', module.hot)

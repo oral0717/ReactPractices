@@ -15,7 +15,7 @@ app.use(
 app.listen(1989, function() {
   console.log('listen1 to 1989')
 })
-
+console.log('yyyyyyyyyy', module.hot)
 
 
 
