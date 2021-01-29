@@ -1,4 +1,5 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const webpack = require('webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
@@ -26,11 +27,15 @@ module.exports = {
   plugins: [
     new webpack.ProgressPlugin(),
     new CleanWebpackPlugin(), // 每次编译删除dist
-    new MiniCssExtractPlugin({ filename:'style.[contenthash].css' })
+    new MiniCssExtractPlugin({ filename:'style.[contenthash].css' }),
+    new HtmlWebpackPlugin({
+      title: 'react项目1',
+      filename: 'index.html'
+    })
   ],
   output: {
     filename: '[name].[contenthash].js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, '../dist')
   },
   module: {
     rules: [{
