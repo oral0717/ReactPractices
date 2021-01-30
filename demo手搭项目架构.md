@@ -70,7 +70,8 @@ module.exports = {
     new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }), // 不想在 watch 触发增量构建后删除 index.html 文件
     new HtmlWebpackPlugin({
       title: '管理输出',
-      filename: '../public/index.html'
+      filename: 'index.html',
+      template: path.join(__dirname,'../src/scripts/template.html') // 以template为模板生成dist/index.html
     }),
   ],
 }
