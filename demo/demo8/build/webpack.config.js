@@ -23,7 +23,10 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 module.exports = {
   mode: 'development',
   entry: './src/scripts/index.js',
-
+  devServer: {
+    contentBase: './dist', // 告知 dev server,从什么位置查找文件
+    hot: true
+  },
   plugins: [
     new webpack.ProgressPlugin(),
     new CleanWebpackPlugin(), // 每次编译删除dist
