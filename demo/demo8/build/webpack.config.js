@@ -27,9 +27,11 @@ module.exports = {
     contentBase: './dist', // 告知 dev server,从什么位置查找文件
     hot: true,
     proxy:[{
-      context: ['/BdPageA', '/BdPageB'],         // 要代理的接口
+      context: ['/UserIntro', '/UserManagement', '/BdPageA', '/BdPageB'],         // 要代理的接口
       target: "http://localhost:8080",
       pathRewrite: {
+        "^/UserIntro":"",
+        "^/UserManagement":"",
         "^/BdPageA":"",
         "^/BdPageB":""
       }, // 处理转换

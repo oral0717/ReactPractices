@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ConfigProvider, DatePicker } from 'antd'
+import { ConfigProvider } from 'antd'
 import { hot } from 'react-hot-loader';
 import { Provider } from 'react-redux'
 import { Switch } from 'react-router'
@@ -19,26 +19,14 @@ class App extends Component{
   render() {
     return (
       <Router>
-        <ConfigProvider locale={zhCN}>hello world<DatePicker/></ConfigProvider>
-        <ul>
-          <li>
-            <Link to="/">UserIntro</Link>
-          </li>
-          <li>
-            <Link to="/UserManagement">UserManagement</Link>
-          </li>
-          <li>
-            <Link to="/BdPageA">BdPageA</Link>
-          </li>
-          <li>
-            <Link to="/BdPageB">BdPageB</Link>
-          </li>
-        </ul>
-          <Route path="/" exact component={UserIntro}/>
-          <Route path="/UserManagement" exact component={UserManagement}/>
-          <Route path="/BdPageA" exact component={BdPageA}/>
-          <Route path="/BdPageB" exact component={BdPageB}/>
-
+        <ConfigProvider locale={zhCN}>
+          <div>
+            <Route path="/" exact component={UserIntro}/>
+            <Route path="/UserManagement" exact component={UserManagement}/>
+            <Route path="/BdPageA" exact component={BdPageA}/>
+            <Route path="/BdPageB" exact component={BdPageB}/>
+          </div>
+        </ConfigProvider>
       </Router>
     )
   }
