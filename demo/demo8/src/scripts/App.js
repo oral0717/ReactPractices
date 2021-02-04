@@ -2,11 +2,9 @@ import React, { Component } from 'react'
 import { ConfigProvider } from 'antd'
 import { hot } from 'react-hot-loader';
 import { Provider } from 'react-redux'
-import { Switch } from 'react-router'
 import {
   BrowserRouter as Router,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 import 'antd/dist/antd.css'
 import zhCN from 'antd/lib/locale/zh_CN';
