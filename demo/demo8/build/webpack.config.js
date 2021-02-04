@@ -25,7 +25,15 @@ module.exports = {
   entry: './src/scripts/index.js',
   devServer: {
     contentBase: './dist', // 告知 dev server,从什么位置查找文件
-    hot: true
+    hot: true,
+    proxy:[{
+      context: ['/BdPageA', '/BdPageB'],         // 要代理的接口
+      target: "http://localhost:8080",
+      pathRewrite: {
+        "^/BdPageA":"",
+        "^/BdPageB":""
+      }, // 处理转换
+    }]
   },
   plugins: [
     new webpack.ProgressPlugin(),

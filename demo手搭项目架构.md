@@ -81,7 +81,7 @@ module.exports = {
 ### webpack开发环境
 分支：demo/demo3/webpack-project-development
 ```js
-// webpack-dev-server 在编译之后不会写入到任何输出文件。而是将 bundle 文件保留在内存中，然后将它们 serve 到 server 中，就好像它们是挂载在 server 根路径上的真实文件一样。如果你的页面希望在其他不同路径中找到 bundle 文件，则可以通过 dev server 配置中的 publicPath 选项进行修改。
+// webpack-dev-server 在编译之后不会写入到任何输出文件。而是将 bundle 文件保留在内存中，然后将它们 serve 到 server 中，就好像它们是挂载在 server 根路径上的真实文件一样。如果你的页面希望在其他不同路径中找到 bundle 文件，则可以通过 devServer 配置中的 publicPath 选项进行修改。
 // 自动编译代码：webpack-dev-server, npm install webpack-dev-server --save-dev
 module.export = {
   mode: 'development',
@@ -93,7 +93,7 @@ module.export = {
 "scripts": {
   "watch": "webpack --watch", // yarn watch如果其中一个文件被更新，代码将被重新编译，所以你不必再去手动运行整个构建
   "build": "webpack --config ./config/webpack.config.js",
-  "start:dev": "webpack serve --config config/webpack.config.js" // npm install webpack-dev-server --save-dev; yarn start:dev 如果其中一个文件被更新，代码将被重新编译
+  "start:dev": "webpack serve --config config/webpack.config.js" // npm install webpack-dev-server --save-dev; yarn start:dev 如果其中一个文件被更新，代码将被重新编译，编译后浏览器自动刷新
 },
 
 // npm install --save-dev express webpack-dev-middleware
@@ -147,6 +147,19 @@ if (module.hot) {
     document.body.appendChild(element);
   })
 }
+```
+### react中热更新 react-hot-loader
+```js
+// yarn add -D react-hot-loader
+// .babelrc 补充：
+// "plugins": ["react-hot-loader/babel"]
+// App.js文件：
+import React from 'react';
+import { hot } from 'react-hot-loader';
+
+const App = () => <div>Hello World!</div>;
+
+export default hot(module)(App);
 ```
 
 ### 代码分离
