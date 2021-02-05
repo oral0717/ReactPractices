@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from "react-router-dom";
+import { Button } from 'antd'
 
 const PageA = () => {
+  const [count, setCount] = useState(1)
+
   return (
     <div>
-      Page A11
       <ul>
           <li>
             <Link to="/">UserIntro</Link>
@@ -17,6 +19,8 @@ const PageA = () => {
             <Link to="/BdPageB">BdPageB</Link>
           </li>
       </ul>
+      <p>Page A</p>
+      <p>累加器：{count}<Button type="primary"> + </Button></p>
     </div>
   )
 }
