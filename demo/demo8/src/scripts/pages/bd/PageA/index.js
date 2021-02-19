@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from "react-router-dom";
 import { Button } from 'antd'
 
-function PageA () {
+function PageA (props) {
   const [count, setCount] = useState(1)
   const [user, setUser] = useState({
     name: 'zz',
@@ -25,6 +25,13 @@ function PageA () {
       console.log(user, name)
     }
   }
+  // React 会在每次渲染后调用副作用函数,包括第一次渲染的时候
+  useEffect(() => {
+    console.log('useEffect componentDidMount componentDidUpdate', count, props)
+    return () => {
+      console.log('componentWillUnmount')
+    }
+  }, [count])
 
   return (
     <div>
