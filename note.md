@@ -54,7 +54,7 @@ P2-2react开发环境准备
   create-react-app todolist // 创建并生成项目todolist
   npm run start // 启动或者 yarn start
   todolist项目目录：manifest.json ,用户在手机上生成app图标的配置
-                serviceWorker.js ,PWA，用户第一次访问网页需要联网，下次断网时，用户可以离线访问本app
+                serviceWorker.js ,PWA，用户第一次访问网页需要联网，下次断网时，用户可以离线访问本app，使web app具有原生app相近的用户体验
                 App.test.js ,自动化测试文件
   备注：1.分支 feature-todolist-fixConfig,项目todolist执行了eject操作
       2.用create-react-app创建的项目，import src以外的文件会失效，添加的特殊限制。它的实现是ModuleScopePlugin为了确保文件驻留在src/。
@@ -100,7 +100,7 @@ P3-7
     视图层框架，不方便与非父子组件传值，这是需要数据层框架redux,flux
     函数式编程，方便自动化测试
 ## P4-1
-  React developer tools
+  React develope-tool
 ## P4-2
   import PropTypes from 'prop-types'   //对变量类型做属性校验
   写法一：

@@ -6,10 +6,10 @@ seo不友好；首屏时间较长，用户体验不好
 React服务端渲染诞生，带来前后端同构可能
 服务端渲染考虑问题：路由跳转，数据同步，seo信息，如何在开发时方便的进行服务端渲染的测试
 
-4.前端工程架构学习
+4. 前端工程架构学习
 demo使用https://cnodejs.org开放API
 
-5.demo介绍：
+5. demo介绍：
 工程架构:
 webpack配置
 node配置
@@ -116,24 +116,24 @@ web 开发常用网络优化 （P2-2）
     压缩资源文件减少请求大小
     利用缓存机制，尽可能使用缓存减少请求
 //////////
-13.P2-3
+13. P2-3
 webpack模块打包器，核心loader机制，webpack通过loader去处理指定的某些类型文件
 创立项目：
-1.新项目空目录下npm init,将当前项目配置成npm项目，然后可以安装很多npm包，webpack即npm包之一，会生成一个package.json文件，
+1. 新项目空目录下npm init,将当前项目配置成npm项目，然后可以安装很多npm包，webpack即npm包之一，会生成一个package.json文件，
 配置项目里需要的npm包生成package.json中keywords作用是：当项目发布到npm上后，npm通过keywords搜索这个项目
-2.安装webpack: npm i webpack              或者 yarn add webpack
+2. 安装webpack: npm i webpack              或者 yarn add webpack
     webpack@4.41.5;出现了package-lock.json 或者  yarn.lock
-3.安装react: npm i react  或者  yarn add react
+3. 安装react: npm i react  或者  yarn add react
     react@16.12.0
-4.根目录下增加build文件夹：放配置文件，webpack的config文件，工程里需要的脚本文件
-5.build里增加
+4. 根目录下增加build文件夹：放配置文件，webpack的config文件，工程里需要的脚本文件
+5. build里增加
     webpack.config.js，配置webpack内容
     生成新文件命令：touch webpack.config.js
-5.根目录下增加client文件夹：放前端应用文件
-6.client里增加
+5. 根目录下增加client文件夹：放前端应用文件
+6. client里增加
     app.js  //应用入口，将来放到html文件里
     App.jsx  //声明整个应用的页面内容
-7.配置webpack.config.js
+7. 配置webpack.config.js
 const path = require('path')
 module.exports = {
     entry:{// 指明app.js是打包入口，根据app.js里依赖关系，一层层迭代下去，将整个依赖树打包成一个js
@@ -151,9 +151,9 @@ module.exports = {
 可以看到生成dist/打包文件
 
 //////////////
-14.P2-4
-1.App.jsx写入内容
-2.配置webpack.config.js使webpack可以识别jsx文件
+14. P2-4
+1. App.jsx写入内容
+2. 配置webpack.config.js使webpack可以识别jsx文件
 module: {
     rules: [
         {
@@ -162,7 +162,7 @@ module: {
         }
     ]
 }
-3.babel默认编译es6代码，不能识别jsx，需要配置支持，根目录加入babel配置文件.babelrc
+3. babel默认编译es6代码，不能识别jsx，需要配置支持，根目录加入babel配置文件.babelrc
 {
     "presets": [// 代表babel支持的语法，由于js版本语法众多：es678/jsx等，babel默认把支持这些语法拆分出去，babel-core默认没有指定现在写的代码是支持哪个语言版本的，所以需要配置文件在此处配置
         ["es2015", {"loose":true}],
@@ -170,7 +170,7 @@ module: {
     ]
 }
 配置好以后需要安装指定包：npm i babel-preset-es2015 babel-preset-es2015-loose babel-preset-react -D
-4.步骤3中，由于webpack版本4+，.babelrc配置改为：
+4. 步骤3中，由于webpack版本4+，.babelrc配置改为：
 {
   "presets": [
     ["@babel/preset-env"],
@@ -180,7 +180,7 @@ module: {
 安装包改为：npm i babel-loader @babel/core @babel/preset-env @babel/preset-react -D
 此时可以成功编译jsx
 
-5.在浏览器里打开页面
+5. 在浏览器里打开页面
 安装 npm i html-webpack-plugin -D
 webpack.config.js里加入 const HTMLPlugin = require('html-webpack-plugin')
 plugins: [
@@ -201,7 +201,7 @@ plugins: [
 再次执行npm run build构建项目，新index.html即可以展示相关内容
 
 //////////////
-15.P2-5
+15. P2-5
 服务端渲染的配置
 
 1.为什么会有服务端渲染?
