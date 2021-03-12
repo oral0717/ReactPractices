@@ -23,6 +23,7 @@ module.exports = {
     new CleanWebpackPlugin({
       cleanStaleWebpackAssets: false
     }),
+    // 生成html模板
     new HtmlWebpackPlugin({
       title: 'Hot Module Replacement',
       filename: '../dist/index.html'
