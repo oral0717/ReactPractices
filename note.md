@@ -50,8 +50,14 @@ P2-2react开发环境准备
 
   create-react-app //官方推荐脚手架工具,用于初级学习
   用法：
-  npm i -g creat-react-app // 全局安装脚手架create-react-app
-  create-react-app todolist // 创建并生成项目todolist
+  npm i -g creat-react-app // 全局安装脚手架create-react-app,
+  create-react-app -V => 4.0.0
+  // v4.0.3版本不再支持全局安装create-react-app
+
+  npm uninstall -g create-react-app // 移除全局create-react-app
+  yarn global remove create-react-app // 同上
+
+  npx create-react-app todolist // 创建并生成项目todolist, npx始终会使用最新版本create-react-app创建项目
   npm run start // 启动或者 yarn start
   todolist项目目录：manifest.json ,用户在手机上生成app图标的配置
                 serviceWorker.js ,PWA，用户第一次访问网页需要联网，下次断网时，用户可以离线访问本app，使web app具有原生app相近的用户体验
