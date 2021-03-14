@@ -3,7 +3,7 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      demo2
+      react-micro-app1
     </div>
   );
 }
