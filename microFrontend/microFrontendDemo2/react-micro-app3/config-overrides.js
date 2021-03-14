@@ -4,6 +4,7 @@ module.exports = {
   webpack: function override(config, env) {
     const copyConfig = { ...config };
     console.log('env', env);
+    copyConfig.output.globalObject = 'window';
     copyConfig.output.library = `${name}-[name]`;
     copyConfig.output.libraryTarget = 'umd';
     copyConfig.output.jsonpFunction = `webpackJsonp_${name}`;

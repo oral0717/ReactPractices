@@ -12,7 +12,7 @@ if (!window.__POWERED_BY_QIANKUN__) {
 }
 
 export async function bootstrap() {
-  console.log('react-micro-app bootstraped');
+  console.log('react-micro-app1 bootstraped');
 }
 
 export async function mount(props) {
@@ -23,4 +23,3 @@ export async function mount(props) {
 export async function unmount() {
   ReactDOM.unmountComponentAtNode(document.getElementById('reactMicroAppRoot1'));
 }
-
