@@ -4,7 +4,8 @@ import './public-path'
 import App from './App';
 
 function render() {
-  ReactDOM.render(<App />, document.getElementById('reactMicroAppRoot1'));
+  const container = document.getElementById('reactMicroAppRoot1')
+  ReactDOM.render(<App />, container);
 }
 
 // 独立运行时，直接挂载应用

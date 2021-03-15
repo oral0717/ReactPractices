@@ -35,7 +35,13 @@ registerMicroApps([
     entry: '//localhost:8083',
     render,
     activeRule: genActiveRule('/reactmicroapp3')
-  },
+  }
 ]);
 
 start();
+// start({
+//   prefetch: true,
+//   jsSandbox: true,
+//   singular: true,
+//   fetch: window.fetch
+// });
