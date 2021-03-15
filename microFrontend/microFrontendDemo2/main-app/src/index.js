@@ -36,8 +36,6 @@ registerMicroApps([
     render,
     activeRule: genActiveRule('/reactmicroapp3')
   },
-  // { name: 'ejectreact', entry: '//localhost:9003', render, activeRule: genActiveRule('/ejectreact') },
-  // { name: 'reactwebpack', entry: '//localhost:9004', render, activeRule: genActiveRule('/reactwebpack') },
 ]);
 
 start();

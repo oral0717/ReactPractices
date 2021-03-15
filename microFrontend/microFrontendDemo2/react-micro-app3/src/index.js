@@ -16,10 +16,11 @@ export async function bootstrap() {
 }
 
 export async function mount(props) {
-  console.log(props);
+  console.log('react-micro-app3 mount');
   render();
 }
 
 export async function unmount() {
+  console.log('react-micro-app3 mount');
   ReactDOM.unmountComponentAtNode(document.getElementById('reactMicroAppRoot3'));
 }
