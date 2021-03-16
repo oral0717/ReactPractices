@@ -49,44 +49,5 @@ const {name} = require('./package')
 
 8. warn: Custom rendering function is deprecated, you can use the container element setting instead!
 
-微前端
-1. 什么是微前端
-- 一种借鉴于微服务的前端架构思想，可以在一个主应用容器里调用多个微任务应用。在用户看来仍然是内聚的单个产品，而对应用来说其实是多个能够独立开发、测试、部署的小块。
-
-2. 微前端特点
-- 主应用与子应用可以采用不同框架技术栈进行独立开发、测试、部署发布，他们各司其职，主应用主要解决一些横切关注点，如身份验证和导航，控制微前端的渲染区域和时机
-- 有利于各应用复用公共资源，代码库更小，可维护性更高
-- 渐进地升级、更新甚至重写部分前端功能成为了可能
-
-3. 微前端注意点
-- 不建议跨子应用复用业务组件，因为会造成高度耦合，增加变更成本
-- 对于公共组件，需要制定规范，严格规范执行，减少不必要的组件代码冗余
-- 需要考虑好样式、作用域的隔离，避免应用间的污染
-- 需要考虑好主应用向子应用间的数据通信，要尽可能减少子应用间的通信，以避免大量弱依赖造成的强耦合
-
-4. 微前端有利于做什么？
-- 用来分解一个大型项目的复杂度：对于一个大型项目，一些相对独立的业务模块可以分离出来作为一个子应用
-- 根据团队技术栈掌握情况，可以尝试不同技术栈
-- 各自负责不用子应用的团队有一定的团队组织上的自治权
-- 为升级老项目提供渐进式路线，度过升级重构过渡期
-
-5. 缺点：
-- 导致依赖项（dependencies）冗余，增加用户的流量负担
-- 团队自治程度的增加，可能会破坏协作
 
 6. 微前端解决方案： qiankun[https://qiankun.umijs.org/zh]
-
-let apps = [{
-  name: 'linjunjie',
-  entry: '//localhost:215', // 改成自己子应用的端口号
-  container:'#subView', //节点 id // 沙盒模式//  render:render, // 普通模式
-  activeRule: genActiveRule('/star'),
-  props:msg
-}]//注册的子应用 参数为数组
-registerMicroApps(apps,{
-  beforeLoad: [app => {console.log(app)console.log('[LifeCycle] before load %c%s', 'color: green;', app.name);},],
-  beforeMount: [
-    app => {console.log('[LifeCycle] before mount %c%s', 'color: green;', app.name);},],
-  afterUnmount: [
-  app => {console.log('[LifeCycle] after unmount %c%s', 'color: green;', app.name);},],
-});

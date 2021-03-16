@@ -1,9 +1,9 @@
 *** 微前端 ***
 1. 什么是微前端
-- 一种借鉴于微服务的前端架构思想，可以在一个主应用容器里调用多个微任务应用。在用户看来仍然是内聚的单个产品，而对应用来说其实是多个能够独立开发、测试、部署的小块。
+- 一种借鉴于微服务的前端架构思想，可以在一个主应用容器里调用多个子应用。在用户看来仍然是内聚的单个产品，而对应用来说其实是多个能够独立开发、测试、部署的小块。
 
 2. 微前端特点
-- 主应用与微应用可以采用不同框架技术栈进行独立开发、测试、部署发布，他们各司其职，主应用主要解决一些横切关注点，如身份验证和导航，控制微前端的渲染区域和时机
+- 主应用与子应用可以采用不同框架技术栈进行独立开发、测试、部署发布，他们各司其职，主应用主要解决一些横切关注点，如身份验证和导航，控制微前端的渲染区域和时机
 - 有利于各应用复用公共资源，代码库更小，可维护性更高
 - 渐进地升级、更新甚至重写部分前端功能成为了可能
 
@@ -25,23 +25,38 @@
 
 6. 微前端解决方案： qiankun[https://qiankun.umijs.org/zh]
 
-7. microFrontendDemo为基于qiankun构建的微前端demo
+7. 踩坑记录：（基于qiankun搭建的实践项目）
+- 报错[qiankun] Wrapper element for ... with instance ... is not existed!
+  - 解决方法：修改webpack配置中的 output.globalObject = ‘window’
+  - 原因：如果globalObject改成了 'this' 会导致沙箱泄露，从而导致不同实例共用了同一个 chunk 运行时，而前一个运行时因为卸载后 element 被置为 null，下一个实例因为还是在同一运行时里会直接使用前一个闭包中的 element，从而造成了报错
+- 子应用与主应用的html模板中的容器div的id取名须不同，但各子应用中的容器id可以相同
+- 子应用中需要添加src/public-path.js文件，在入口文件src/index.js中引入该文件，子应用中入口处定义    __webpack_public_path__，运行时动态获取，防止资源加载出错
+  - public-path.js内容：
+    ```js
+    if (window.__POWERED_BY_QIANKUN__) {
+        //  编译时环境中没有 __webpack_public_path__，所以会报未定义
+        // eslint-disable-next-line no-undef
+    __webpack_public_path__ = window.__INJECTED_PUBLIC_PATH_BY_QIANKUN__;
+    }
+    ```
+
+8. microFrontendDemo为基于qiankun构建的微前端demo
 - 目录为:
   - 主应用main-app
-  - 微应用react-micro-app1
-  - 微应用react-micro-app2
-  - 微应用react-micro-app3
+  - 子应用react-micro-app1
+  - 子应用react-micro-app2
+  - 子应用react-micro-app3
 - 访问方法：
-  - 先启动各微应用：
+  - 先启动各子应用：
   cd react-micro-app1, yarn start,  http://localhost:8081/ (可单独访问)
   cd react-micro-app2, yarn start,  http://localhost:8082/ (可单独访问)
   cd react-micro-app3, yarn start,  http://localhost:8083/ (可单独访问)
   - 然后启动主应用
   cd main-app, yarn start, http://localhost:8080/
-  - 访问主应用 http://localhost:8080/，点击主应用中导航，即可在当前页面访问对应微应用，注意查看路由变化。
+  - 访问主应用 http://localhost:8080/，点击主应用中导航，即可在当前页面访问对应子应用，注意查看路由变化。
 - 主要功能：
-  - 在主应用首页中点击导航，访问微应用
-  - 各微应用中暴露多生命周期可供调用:
+  - 在主应用首页中点击导航，访问子应用
+  - 各子应用中暴露多生命周期可供调用:
     - bootstrap
     - mount
     - unmount
