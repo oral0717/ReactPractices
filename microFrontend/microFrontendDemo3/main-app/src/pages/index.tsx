@@ -8,15 +8,16 @@ export default function IndexPage() {
       <Header>
         <div className="logo" >微前端</div>
         <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['3']}>
-          <Menu.Item key="1">app 1</Menu.Item>
-          <Menu.Item key="2">app 2</Menu.Item>
-          <Menu.Item key="3">app 3</Menu.Item>
+          <Menu.Item key="1">首页</Menu.Item>
+          <Menu.Item key="2">app 1</Menu.Item>
+          <Menu.Item key="3">app 2</Menu.Item>
+          <Menu.Item key="4">app 3</Menu.Item>
         </Menu>
       </Header>
       <Content>
         <div className="site-layout-content">Content</div>
       </Content>
-      <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+      <Footer style={{ textAlign: 'center' }}>主应用Footer</Footer>
     </Layout>
   );
 }
