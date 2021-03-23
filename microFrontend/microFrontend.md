@@ -60,3 +60,11 @@
     - bootstrap
     - mount
     - unmount
+
+思考：
+1. 数据流转
+2. 共享功能
+3. 应用级缓存处理
+
+
+9. microFrontendDemo3 umi创建项目启用@umijs/plugin-qiankun
