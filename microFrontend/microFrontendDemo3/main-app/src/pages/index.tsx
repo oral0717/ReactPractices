@@ -2,7 +2,8 @@ import { Layout, Menu } from 'antd';
 const { Header, Content, Footer } = Layout;
 import './index.less';
 
-export default function IndexPage() {
+export default function IndexPage(props: Object) {
+  console.log('indexxxx', props)
   return (
     <Layout className="layout">
       <Header>
@@ -15,7 +16,9 @@ export default function IndexPage() {
         </Menu>
       </Header>
       <Content>
-        <div className="site-layout-content">Content</div>
+        <div className="site-layout-content">
+          主应用Content
+        </div>
       </Content>
       <Footer style={{ textAlign: 'center' }}>主应用Footer</Footer>
     </Layout>
