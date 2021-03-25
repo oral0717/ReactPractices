@@ -3,7 +3,15 @@ export default [
   {
     exact: true,
     path: '/',
-    component: '@/pages/index'
+    component: '@/pages/index.tsx',
+    routes: [
+      {
+        exact: true,
+        path: '/xx',
+        component: '@/pages/user',
+        title: 'userxx'
+      }
+    ]
   },
   {
     exact: true,

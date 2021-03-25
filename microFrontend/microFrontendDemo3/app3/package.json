@@ -1,4 +1,5 @@
 {
+  "name": "app3",
   "private": true,
   "scripts": {
     "start": "umi dev",

@@ -1,9 +1,13 @@
 
 import { defineConfig } from 'umi'; // 如果你想在写配置时也有提示，可以通过 umi 的 defineConfig 方法定义配置
 import routes from './routes';
-console.log('main-appxxx')
+console.log('main-app')
+
 export default defineConfig({
-  routes,
+  dva: {},
+  nodeModulesTransform: {
+    type: 'none',
+  },
   qiankun: {
     master: {
       apps: [ // 注册子应用信息
@@ -22,10 +26,10 @@ export default defineConfig({
           entry: '//localhost:1803',
         },
       ],
-      routes: [ // 子应用运行时需要注册的微应用路由
+      routes: [ // 子应用运行时需要注册的子应用路由
         {
           path: '/app1', // 路由 path
-          microApp: 'app1', // 关联的微应用名称
+          microApp: 'app1', // 关联的子应用名称
           microAppProps: {} // 微应用配置
         },
         {
@@ -35,11 +39,14 @@ export default defineConfig({
         },
         {
           path: '/app3',
-          microApp: 'app3', 
+          microApp: 'app3',
           microAppProps: {}
         }
-      ]
+      ],
+      sandbox: true, // 是否启用沙箱
+      prefetch: true // 是否启用 prefetch 特性
     },
   },
+  routes,
 });
 
