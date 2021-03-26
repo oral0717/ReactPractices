@@ -24,6 +24,7 @@
   "dependencies": {
     "@ant-design/pro-layout": "^6.5.0",
     "@umijs/preset-react": "^1.8.2",
+    "qiankun": "^2.4.0",
     "umi": "^3.4.4"
   },
   "devDependencies": {

@@ -1,9 +1,8 @@
 
 export default [
   {
-    exact: true,
     path: '/',
-    component: '@/pages/index.tsx',
+    component: '@/pages/index',
     routes: [
       {
         exact: true,
