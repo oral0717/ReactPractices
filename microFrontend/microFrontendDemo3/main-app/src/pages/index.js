@@ -5,7 +5,7 @@ import './index.less';
 const { Header, Content, Footer } = Layout;
 
 export default function IndexPage(props) {
-  console.log('index', props)
+  // console.log('index', props)
   const {children, location} = props
 
   return (
