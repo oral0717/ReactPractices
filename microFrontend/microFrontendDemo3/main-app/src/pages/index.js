@@ -17,7 +17,7 @@ export default function IndexPage(props) {
       <Content>
         <div className="site-layout-content">
           {
-            location.pathname === '/' ? '欢迎访问主应用' : children
+            location.pathname === '/' || location.pathname === '/main' ? '欢迎访问主应用' : children
           }
         </div>
       </Content>

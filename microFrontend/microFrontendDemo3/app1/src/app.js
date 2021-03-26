@@ -14,5 +14,3 @@ export const qiankun = {
     console.log('app1 unmount', props);
   },
 };
-
-

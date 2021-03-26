@@ -6,7 +6,7 @@ export default [
     routes: [
       {
         exact: true,
-        path: '/xx',
+        path: '/main/xx',
         component: '@/pages/user',
         title: 'userxx'
       }

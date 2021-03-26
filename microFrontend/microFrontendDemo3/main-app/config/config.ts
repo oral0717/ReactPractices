@@ -43,8 +43,8 @@ export default defineConfig({
           microAppProps: {}
         }
       ],
-      sandbox: true, // 是否启用沙箱
-      prefetch: true // 是否启用 prefetch 特性
+      sandbox: false, // 是否启用沙箱
+      prefetch: false // 是否启用 prefetch 特性
     },
   },
   routes,

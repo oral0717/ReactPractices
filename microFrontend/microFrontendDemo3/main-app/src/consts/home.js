@@ -2,7 +2,7 @@ export const MENUS = [
   {
     id: '1',
     name: '首页',
-    path: '/'
+    path: '/main'
   },
   {
     id: '2',
