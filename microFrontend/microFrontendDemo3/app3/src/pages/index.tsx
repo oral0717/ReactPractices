@@ -10,9 +10,9 @@ export default function IndexPage() {
     <Layout>
       <Content>
         <Breadcrumb style={{ margin: '16px 0' }}>
-          <Breadcrumb.Item>Home</Breadcrumb.Item>
-          <Breadcrumb.Item>List</Breadcrumb.Item>
-          <Breadcrumb.Item>App3</Breadcrumb.Item>
+          <Breadcrumb.Item>app3</Breadcrumb.Item>
+          <Breadcrumb.Item>subnav1</Breadcrumb.Item>
+          <Breadcrumb.Item>option1</Breadcrumb.Item>
         </Breadcrumb>
         <Layout className="site-layout-background" style={{ padding: '24px 0' }}>
           <Sider className="site-layout-background" width={200}>
@@ -42,7 +42,7 @@ export default function IndexPage() {
               </SubMenu>
             </Menu>
           </Sider>
-          <Content style={{ padding: '0 24px', minHeight: 280 }}>app3,Content</Content>
+          <Content style={{ padding: '0 24px', minHeight: 280 }}>app3,Content33333333333333333333</Content>
         </Layout>
       </Content>
       <Footer style={{ textAlign: 'center' }}>app3 Footer</Footer>
