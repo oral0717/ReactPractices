@@ -5,7 +5,7 @@ console.log('main-app')
 
 export default defineConfig({
   dva: {},
-  nodeModulesTransform: {
+  nodeModulesTransform: { // Umi 默认编译 node_modules 下的文件，带来一些收益的同时，也增加了额外的编译时间。如果不希望 node_modules 下的文件走 babel 编译，可通过以下配置减少 40% 到 60% 的编译时间。
     type: 'none',
   },
   qiankun: {
@@ -16,6 +16,7 @@ export default defineConfig({
           entry: '//localhost:1801', // 子应用html 地址
           credentials: false, // 拉取 entry 时是否需要携带cookie
           props: { // 主应用传递给子应用的数据
+            handleClick: (event: any) => console.log(event), // 方法无法传递？
             dataFrom: '主应用config/config.ts中props',
             data: {
               userName: 'oral'
@@ -37,8 +38,8 @@ export default defineConfig({
           microApp: 'app1', // 关联的子应用名称
           microAppProps: { // 微应用配置
             autoSetLoading: true, // 开启子应用初次加载时的loading
-            // className: 'myContainer', // 子应用容器的className
-            // wrapperClassName: 'myWrapper',
+            className: 'myContainer', // 子应用容器的className
+            wrapperClassName: 'myWrapper', // 子应用及loading的容器myWrapper
           }
         },
         {
