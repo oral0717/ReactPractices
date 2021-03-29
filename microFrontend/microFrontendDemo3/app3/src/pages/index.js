@@ -1,6 +1,7 @@
 import { Layout, Menu, Breadcrumb } from 'antd';
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 import './index.less';
+import MyPage from './page1'
 
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
@@ -42,7 +43,10 @@ export default function IndexPage() {
               </SubMenu>
             </Menu>
           </Sider>
-          <Content style={{ padding: '0 24px', minHeight: 280 }}>app3,Content33333333333333333333</Content>
+          <Content style={{ padding: '0 24px', minHeight: 280 }}>
+            app3,Content33333333333333333333
+            <MyPage />
+          </Content>
         </Layout>
       </Content>
       <Footer style={{ textAlign: 'center' }}>app3 Footer</Footer>

@@ -15,7 +15,12 @@ export default defineConfig({
           name: 'app1', // 子应用唯一 id
           entry: '//localhost:1801', // 子应用html 地址
           credentials: false, // 拉取 entry 时是否需要携带cookie
-          props: {} // 主应用传递给子应用的数据
+          props: { // 主应用传递给子应用的数据
+            dataFrom: '主应用config/config.ts中props',
+            data: {
+              userName: 'oral'
+            }
+          }
         },
         {
           name: 'app2',
@@ -30,21 +35,29 @@ export default defineConfig({
         {
           path: '/app1', // 路由 path
           microApp: 'app1', // 关联的子应用名称
-          microAppProps: {} // 微应用配置
+          microAppProps: { // 微应用配置
+            autoSetLoading: true, // 开启子应用初次加载时的loading
+            // className: 'myContainer', // 子应用容器的className
+            // wrapperClassName: 'myWrapper',
+          }
         },
         {
           path: '/app2',
           microApp: 'app2',
-          microAppProps: {}
+          microAppProps: {
+            autoSetLoading: true,
+          }
         },
         {
           path: '/app3',
           microApp: 'app3',
-          microAppProps: {}
+          microAppProps: {
+            autoSetLoading: true,
+          }
         }
       ],
       sandbox: false, // 是否启用沙箱
-      prefetch: false // 是否启用 prefetch 特性
+      prefetch: true // 是否启用 prefetch 特性
     },
   },
   routes,

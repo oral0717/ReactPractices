@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { history } from 'umi';
 
 function getMenuId(str) {
+  if (str === '/') return '1'
   const item = MENUS.find(i => str.startsWith(i.path)) // main
   return item.id
 }
