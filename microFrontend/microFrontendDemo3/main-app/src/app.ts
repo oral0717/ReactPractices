@@ -1,28 +1,34 @@
 import {useState} from 'react'
-// export function useQiankunStateForSlave() {
-//   const [masterState, setMasterState] = useState({
-//     stateFrom: '主应用'
-//   });
+import { initGlobalState, MicroAppStateActions } from 'qiankun';
 
-//   return {
-//     masterState,
-//     setMasterState,
-//   };
-// }
-// src/App.ts
+// 使用 initGlobalState(state) 全局传值 start
+// 初始化 state
+const state = {
+  way: 'initGlobalState(state)'
+}
+const actions: MicroAppStateActions = initGlobalState(state);
+actions.onGlobalStateChange((state, prev) => {
+  // state: 变更后的状态; prev 变更前的状态
+  console.log('主应用数据监听', state, prev);
+});
+actions.setGlobalState(state); // 设置全局数据
+actions.offGlobalStateChange(); // 关闭子应用修改全局数据的通道
+// end
+
+// useQiankunStateForSlave 名字固定
 export function useQiankunStateForSlave() {
-  const [globalState, setGlobalState] = useState({ dataName: 'oral' })
+  const [globalState, setGlobalState] = useState({ dataName: 'useQiankunStateForSlave' })
   const [ableState, setAbleState] = useState({ dataAge: 18 })
   // 实际给子应用调用修改 state 的方法
   // 传参和实现可以自定义, 子应用直接调用 setGlobalState 是不生效的, 所以才需要这个额外的方法, 这是一个坑
-  const setGlobalStateHandle = (dataName: any) => { setGlobalState({ dataName }) }
-  const setAbleStateHandle = (dataAge: any) => { setAbleState({ dataAge }) }
+  // const setGlobalStateHandle = (dataName: any) => { setGlobalState({ dataName }) }
+  // const setAbleStateHandle = (dataAge: any) => { setAbleState({ dataAge }) }
   return {
     globalState,
     setGlobalState,
     ableState,
-    setAbleState,
-    setGlobalStateHandle,
-    setAbleStateHandle
+    setAbleState
+    // setGlobalStateHandle,
+    // setAbleStateHandle
   };
 }
