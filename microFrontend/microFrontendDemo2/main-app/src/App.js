@@ -20,6 +20,7 @@ function App(props) {
         </nav>
       </header>
       {loading ? <div>loading...</div> : null}
+      {content}
       <div dangerouslySetInnerHTML={{ __html: content }} />
     </>
   );

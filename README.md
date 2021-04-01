@@ -7,5 +7,17 @@ react技术栈项目实战
 5. `create-react-app` 脚手架创建`counter2`,使用redux,react-redux完整项目
 6. `create-react-app` 脚手架创建`oral1`,react官网井字棋
 7. `umi` 创建项目 `umiDemo1`
-6. `create-react-app` 脚手架创建`demo1`, 项目初始化
-6. `create-react-app` 脚手架创建`demo2`, 用于调试react源码
+8. `create-react-app` 脚手架创建`demo1`, 项目初始化
+9. `create-react-app` 脚手架创建`demo2`, 用于调试react源码
+
+10. microFrontend 微前端项目目录
+
+
+
+
+
+
+
+
+
+

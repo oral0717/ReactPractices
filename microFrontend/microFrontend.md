@@ -61,10 +61,7 @@
     - mount
     - unmount
 
-思考：
-1. 数据流转
-2. 共享功能
-3. 应用级缓存处理
+
 
 
 9. microFrontendDemo3 umi创建项目启用@umijs/plugin-qiankun
@@ -75,6 +72,135 @@
 - 各应用间登录信息处理及子应用统一获取公共信息及各自登录处理
 - 主应用中Footer部分显示，子应用中相应无重复内容显示，如Footer，logo，面包屑导航
 - 主应用初次默认打开哪个子应用处理？
+
+
+
+- 子应用中不用引入qiankun依赖, 但是需要安装插件 @umijs/plugin-qiankun
+- 应用中如果加入config/config.js配置，如果想要生效，需要删除根目录中的 .umirc.ts，后者优先级比较高
+- 子应用中需要在src/app.ts入口文件里暴露出子应用生命周期钩子(非必要)
+- 生命周期函数：bootstrap mount unmount
+- 主应用里注册的子应用的name需要与子应用中package.json中的name保持一致，否则会有warning
+
+10. 主应用向子应用传递数据
+- localStorage:
+- 通过props传值：
+  主应用中config/config.ts配置中注册子应用信息时，props接收主应用传递给子应用的数据
+- 配合 useModel 使用（推荐）
+  安装@umijs/plugin-model 或 @umijs/preset-react,默认的脚手架内置了 @umijs/preset-react
+  需要在 src/app.ts 里导出一个 useQiankunStateForSlave 函数，函数的返回值将作为 props 传递给微应用
+- 使用 initGlobalState(state) 全局传值
+
+
+11. 子应用向主应用传递数据
+
+## 报错
+- 已经加载过app1，切到app2, 在切回app1时报错：
+devScripts.js:5931 Warning: Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application. To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function.
+子应用已经卸载了，却还操作了state
+
+
+
+## 基于umi创建的项目微前端方案
+- umi脚手架创建三个子应用 和 一个主应用
+  umi创建项目方法:mkdir appxx && cd appxx // 创建应用appxx， app4为初始项目
+                yarn create @umijs/umi-app
+                yarn
+                yarn start
+- 主应用main-app中安装 npm包 qiankun 及插件 @umijs/plugin-qiankun
+  yarn add qiankun
+  yarn add -D @umijs/plugin-qiankun
+- 主应用修改配置：
+    - 删除根目录.umirc.ts, 创建config/config.ts 进行路由等配置（.umirc.ts优先级较高，所以要删除）
+    - 根目录中新建.env文件，进行一些有关环境配置，如默认端口配置PORT=8001
+
+- 主应用中的config.ts里注册子应用及配置子应用对应访问路由
+  指定UMI_ENV=test，则默认采用config/config.test.ts
+- 子应用修改配置：
+  - 删除根目录.umirc.ts, 创建config/config.ts 进行路由等配置（.umirc.ts优先级较高，所以要删除）
+  - 根目录中新建.env文件，进行一些有关环境配置，如默认端口配置PORT=8001
+  - 在config/config.ts中注入：
+    qiankun: {
+      slave: {}
+    }
+- 子应用中只需安装插件 @umijs/plugin-qiankun，不用安装qiankun
+- 子应用中创建入口文件src/app.ts，声明好子应用的生命周期函数：bootstrap mount unmount
+- 主应用与子应用间数据交流
+  - 通过props传值：
+    主应用中config/config.ts配置中注册子应用信息时，props接收主应用传递给子应用的数据
+    子应用中的生命周期函数就能接收到
+
+  - 配合 useModel 使用（推荐）
+    安装@umijs/plugin-model 或 @umijs/preset-react,默认的脚手架内置了 @umijs/preset-react
+    ```js
+    // 主应用中需要在 src/app.ts 里导出一个 useQiankunStateForSlave 函数，函数的返回值将作为 props 传递给微应用
+    export function useQiankunStateForSlave() {
+      const [globalState, setGlobalState] = useState({ dataName: 'useQiankunStateForSlave' })
+      const [ableState, setAbleState] = useState({ dataAge: 18 })
+      // 实际给子应用调用修改 state 的方法
+      // 传参和实现可以自定义, 子应用直接调用 setGlobalState 是不生效的, 所以才需要这个额外的方法, 这是一个坑
+      // const setGlobalStateHandle = (dataName: any) => { setGlobalState({ dataName }) }
+      // const setAbleStateHandle = (dataAge: any) => { setAbleState({ dataAge }) }
+      return {
+        globalState,
+        setGlobalState,
+        ableState,
+        setAbleState
+        // setGlobalStateHandle,
+        // setAbleStateHandle
+      };
+    }
+    // 子应用中的生命周期函数中的props可以读到传过来的数据，在mount函数中
+    const dataName = masterProps.globalState.dataName
+    console.log(dataName)
+    masterProps.onGlobalStateChange((state: any, prev: any) =>
+      {
+        console.log(state, prev);
+      });
+    useEffect(() => { masterProps.setState('bbb') }, [])
+    console.log('masterProps',masterProps)
+    // 子应用中的生命周期函数的props可以读到，页面中通过
+    import { useModel } from 'umi';
+    function MyPage() {
+      const mainAppProps = useModel('@@qiankunStateFromMaster');
+      console.log('mainAppProps', mainAppProps)
+      return <div>App1中page1{JSON.stringify(mainAppProps)}</div>;
+    }
+    export default MyPage
+    ```
+
+  - qiankun 官方提供的通信方式 - Actions 通信，使用 initGlobalState(state) 全局传值
+    定义全局状态, 并返回通信方法, 建议在主应用使用, 微应用通过 props 获取通信方法
+      ```js
+      //- 主应用：
+      import { initGlobalState, MicroAppStateActions } from 'qiankun';
+      // 初始化 state
+      const actions: MicroAppStateActions = initGlobalState(state);
+      actions.onGlobalStateChange((state, prev) => {
+        // state: 变更后的状态; prev 变更前的状态
+        console.log(state, prev);
+      });
+      actions.setGlobalState(state);
+      actions.offGlobalStateChange();
+      //- 子应用：
+      // 从生命周期 mount 中获取通信方法, 使用方式和 master 一致
+      export function mount(props) {
+        props.onGlobalStateChange((state, prev) => {
+          // state: 变更后的状态; prev 变更前的状态
+          console.log(state, prev);
+        });
+        props.setGlobalState(state);
+      }
+      ```
+      - 优点: 可传递 store 到各子应用
+      - 缺点: 子应用在 App.ts 中才比较好使用 props.onChangeGlobalState 之类语法
+
+- localstorage使用是否有问题
+- jquery网站内嵌
+- 部署以后的项目name影响
+- 子应用与子应用间数据传递
+- 各应用间样式隔离
+- 路由注册子应用，是否要约束路由模式一致，是否可以接受history 与 hash 并用
+
 
 
 
