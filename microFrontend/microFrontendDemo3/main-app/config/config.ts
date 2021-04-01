@@ -1,7 +1,7 @@
 
 import { defineConfig } from 'umi'; // 如果你想在写配置时也有提示，可以通过 umi 的 defineConfig 方法定义配置
 import routes from './routes';
-console.log('main-app')
+// console.log('main-app')
 
 export default defineConfig({
   dva: {},
@@ -47,6 +47,8 @@ export default defineConfig({
           microApp: 'app2',
           microAppProps: {
             autoSetLoading: true,
+            className: 'myContainer', // 子应用容器的className
+            wrapperClassName: 'myWrapper', // 子应用及loading的容器myWrapper
           }
         },
         {
@@ -54,11 +56,11 @@ export default defineConfig({
           microApp: 'app3',
           microAppProps: {
             autoSetLoading: true,
+            className: 'myContainer', // 子应用容器的className
+            wrapperClassName: 'myWrapper', // 子应用及loading的容器myWrapper
           }
         }
-      ],
-      sandbox: false, // 是否启用沙箱
-      prefetch: true // 是否启用 prefetch 特性
+      ]
     },
   },
   routes,
