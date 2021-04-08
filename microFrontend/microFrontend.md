@@ -100,7 +100,7 @@ devScripts.js:5931 Warning: Can't perform a React state update on an unmounted c
 
 
 
-## 基于umi创建的项目微前端方案
+### 基于umi创建的项目微前端方案
 - umi脚手架创建三个子应用 和 一个主应用
   umi创建项目方法:mkdir appxx && cd appxx // 创建应用appxx， app4为初始项目
                 yarn create @umijs/umi-app
@@ -124,7 +124,25 @@ devScripts.js:5931 Warning: Can't perform a React state update on an unmounted c
     }
 - 子应用中只需安装插件 @umijs/plugin-qiankun，不用安装qiankun
 - 子应用中创建入口文件src/app.ts，声明好子应用的生命周期函数：bootstrap mount unmount
-- 主应用与子应用间数据交流
+  ```js
+  // src/app.ts
+  export const qiankun = {
+    // 应用加载之前
+    async bootstrap(props: any) {
+      console.log('app1 bootstrap', props);
+    },
+    // 应用 render 之前触发
+    async mount(props: any) {
+      console.log('app1 mount', props);
+      props.setAbleState({ dataAge: 182})
+    },
+    // 应用卸载之后触发
+    async unmount(props: any) {
+      console.log('app1 unmount', props);
+    },
+  };
+  ```
+### 主应用与子应用间数据交流
   - 通过props传值：
     主应用中config/config.ts配置中注册子应用信息时，props接收主应用传递给子应用的数据
     子应用中的生命周期函数就能接收到
