@@ -2,13 +2,15 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
+  mode: 'development',
+  devtool: 'cheap-module-source-map',
   entry: {
     app: path.join(__dirname, '../client/index.js')
   },
   output: {
     filename: '[name].[hash].js',
     path: path.join(__dirname, '../dist'),
-    publicPath: '/public/'
+    publicPath: ''
   },
   resolve: {
     extensions: ['*', '.js', '.jsx'] // 后缀名自动补全
@@ -16,7 +18,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js|jsx$/,
+        test: /\.jsx?$/,
         exclude: [
           path.join(__dirname, '../node_modules') // 排除文件夹
         ],
@@ -36,5 +38,11 @@ module.exports = {
       template: path.join(__dirname, '../client/template.html'),
       filename: 'index.html'
     })
-  ]
+  ],
+  devServer: {
+    contentBase: path.join(__dirname, '../dist'),
+    publicPath: '',
+    host: '127.0.0.1',
+    port: 3000
+  }
 }
