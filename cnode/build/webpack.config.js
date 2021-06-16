@@ -1,5 +1,5 @@
 const path = require('path')
-const HTMLPlugin = require('html-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   entry: {
@@ -10,18 +10,31 @@ module.exports = {
     path: path.join(__dirname, '../dist'),
     publicPath: '/public/'
   },
+  resolve: {
+    extensions: ['*', '.js', '.jsx'] // 后缀名自动补全
+  },
   module: {
     rules: [
       {
         test: /\.js|jsx$/,
-        loader: 'babel-loader',
         exclude: [
-          path.join(__dirname, '../node_modules')
-        ]
+          path.join(__dirname, '../node_modules') // 排除文件夹
+        ],
+        use: {
+          loader: 'babel-loader',
+          options: {
+            babelrc: true,
+            presets: ['@babel/preset-react', '@babel/preset-env'],
+            cacheDirectory: true
+          }
+        }
       }
     ]
   },
   plugins: [
-    new HTMLPlugin()
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, '../client/template.html'),
+      filename: 'index.html'
+    })
   ]
 }
