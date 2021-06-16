@@ -1,6 +1,7 @@
 import { Layout } from 'antd';
 import MainMenu from '@/components/MainMenu'
-import './index.less';
+// import './index.less';
+import styles from './index.less'
 
 const { Header, Content, Footer } = Layout;
 
@@ -9,13 +10,13 @@ export default function IndexPage(props) {
   const {children, location} = props
 
   return (
-    <Layout className="layout">
+    <Layout className={styles["layout"]}>
       <Header>
-        <div className="logo" >微前端</div>
+        <div className={styles["logo"]} >微前端</div>
         <MainMenu location={location} />
       </Header>
       <Content>
-        <div className="site-layout-content">
+        <div className={styles['site-layout-content']}>
           {
             location.pathname === '/' || location.pathname === '/main' ? '欢迎访问主应用' : children
           }
