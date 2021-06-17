@@ -1,10 +1,3 @@
-// import React, { Component } from 'react';
-// import ReactDOM from 'react-dom'
-// import App from './App'
-
-// const root = document.getElementById('root')
-// ReactDOM.render(<App />, root)
-
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
@@ -24,9 +17,10 @@ const render = (Component)=>{
 }
 
 render(App)
+console.log(1111111111, module)
 
 if (module.hot) {
-  module.hot.accept('./App.jsx', ()=>{
+  module.hot.accept('./App.js', ()=>{
     const NextApp = require('./App.js').default
     render(NextApp)
   })
