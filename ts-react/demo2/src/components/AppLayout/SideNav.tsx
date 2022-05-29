@@ -46,7 +46,7 @@ const items: MenuProps['items'] = [
 ];
 
 const SideNav: React.FC = () => {
-  const [current, setCurrent] = useState('sub1')
+  const [current, setCurrent] = useState('1')
   const navigate = useNavigate()
   const onClick: MenuProps['onClick'] = e => {
     console.log('click ', e);

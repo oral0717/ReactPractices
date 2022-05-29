@@ -8,7 +8,7 @@ function UserDetail(props: Props) {
   const { userId } = useParams() // 获取url上的参数
 
   return (
-    <>userDetail{userId}</>
+    <>userDetail--userId={userId}</>
   )
 }
 
