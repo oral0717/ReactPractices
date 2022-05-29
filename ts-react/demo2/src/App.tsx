@@ -12,12 +12,12 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path='/login' element={<Login></Login>} />
-        <Route path='/' element={<AppLayout></AppLayout>} >
-          <Route index element={<Home></Home>}></Route>
-          <Route path='user' element={<User></User>}>
-            <Route path='userDetail' element={<UserDetail></UserDetail>}></Route>
+        <Route path='/login' element={<Login />} />
+        <Route path='/' element={<AppLayout />} >
+          <Route index element={<Home />}></Route>
+          <Route path='user' element={<User />}>
           </Route>
+          <Route path='user/:userId' element={<UserDetail />}></Route>
         </Route>
 
       </Routes>
