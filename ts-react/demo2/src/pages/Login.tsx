@@ -13,7 +13,6 @@ function Login(props: Props) {
   }
   return (
     <div>
-      login
       <Button onClick={login} type="primary">登录</Button>
     </div>
   )

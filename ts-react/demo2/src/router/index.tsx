@@ -1,9 +1,18 @@
+import { Spin } from 'antd'
+import { lazy, Suspense, ReactNode } from 'react'
 import { RouteObject } from 'react-router-dom'
 import AppLayout from '../components/AppLayout'
-import Home from '../pages/Home'
-import Login from '../pages/Login'
-import User from '../pages/User'
-import UserDetail from '../pages/UserDetail'
+const Home = lazy(() => import('../pages/Home'))
+const Login = lazy(() => import('../pages/Login'))
+const User = lazy(() => import('../pages/User'))
+const UserDetail = lazy(() => import('../pages/UserDetail'))
+const lazyLoad = (children: ReactNode): ReactNode => {
+  return (
+    <Suspense fallback={<Spin />}>
+      {children}
+    </Suspense>
+  )
+}
 const router: RouteObject[] = [
   {
     path: '/',
@@ -11,21 +20,21 @@ const router: RouteObject[] = [
     children: [
       {
         path: '',
-        element: <Home />
+        element: lazyLoad(<Home />)
       },
       {
         path: 'user',
-        element: <User />
+        element: lazyLoad(<User />)
       },
       {
         path: 'user/:userId',
-        element: <UserDetail />
+        element: lazyLoad(<UserDetail />)
       }
     ]
   },
   {
     path: '/login',
-    element: <Login />
+    element: lazyLoad(<Login />)
   }
 ]
 export default router

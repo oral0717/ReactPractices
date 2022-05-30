@@ -1,6 +1,6 @@
 import { Layout } from 'antd'
 import React, { FC } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
 import HeaderNav from './HeaderNav';
 import SideNav from './SideNav';
 const { Header, Footer, Sider, Content } = Layout;
@@ -9,7 +9,8 @@ interface Props { }
 
 const AppLayout: FC = (props: Props) => {
   const { } = props
-
+  const { pathname } = useLocation()
+  console.log(pathname)
   return (
     <Layout>
       <Header><HeaderNav /></Header>
