@@ -1,21 +1,47 @@
 import { Layout } from 'antd'
-import React, { FC } from 'react'
-import { Outlet, useLocation } from 'react-router-dom'
+import React, { FC, useEffect, useState } from 'react'
+import { Outlet, useLocation, matchRoutes } from 'react-router-dom'
+import router from '../../router'
 import HeaderNav from './HeaderNav';
 import SideNav from './SideNav';
 const { Header, Footer, Sider, Content } = Layout;
 
-interface Props { }
-
-const AppLayout: FC = (props: Props) => {
-  const { } = props
+const AppLayout: FC = () => {
   const { pathname } = useLocation()
-  console.log(pathname)
+  const [defaultSelectedKeys, setDefaultSelectedKeys] = useState<string[]>([])
+  const [defaultOpenKeys, setDefaultOpenKeys] = useState<string[]>([])
+  const [isInitApp, setIsInitApp] = useState<boolean>(false)
+
+  useEffect(() => {
+    const routes = matchRoutes(router, pathname)
+    console.log(4444, routes)
+    const pathArr: string[] = []
+    if (routes) {
+      for (let match of routes) {
+        let path = match.pathname
+        if (path) {
+          pathArr.push(path)
+        }
+      }
+    }
+    setDefaultSelectedKeys(pathArr)
+    setDefaultOpenKeys(pathArr)
+    setIsInitApp(true)
+  }, [pathname])
+
+  if (!isInitApp) {
+    return null
+  }
   return (
     <Layout>
       <Header><HeaderNav /></Header>
       <Layout>
-        <Sider><SideNav /></Sider>
+        <Sider>
+          <SideNav
+            defaultSelectedKeys={defaultSelectedKeys}
+            defaultOpenKeys={defaultOpenKeys}
+          />
+        </Sider>
         <Content>
           <Outlet />
         </Content>

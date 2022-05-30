@@ -45,30 +45,27 @@ const items: MenuProps['items'] = [
   ]),
 ];
 
-const SideNav: React.FC = () => {
-  const [current, setCurrent] = useState('1')
-  const navigate = useNavigate()
-  const onClick: MenuProps['onClick'] = e => {
-    console.log('click ', e);
-    // navigate(e.item.props.path)
-    setCurrent(e.key)
-  };
+interface IProps {
+  defaultSelectedKeys: string[]
+  defaultOpenKeys: string[]
+}
+
+const SideNav: React.FC<any> = (props: IProps) => {
 
   return (
     <Menu
-      onClick={onClick}
-      defaultSelectedKeys={[current]}
-      defaultOpenKeys={['sub1']}
+      defaultSelectedKeys={props.defaultSelectedKeys}
+      defaultOpenKeys={props.defaultOpenKeys}
       mode="inline"
     >
-      <SubMenu key="sub1" title="用户管理">
-        <Menu.Item key="1">
+      <SubMenu key="/" title="用户管理">
+        <Menu.Item key="/user">
           <Link to="/user">用户</Link>
         </Menu.Item>
-        <Menu.Item key="2">
+        <Menu.Item key="/user/2">
           <Link to="/user/2">用户2</Link>
         </Menu.Item>
-        <Menu.Item key="3">用户3</Menu.Item>
+        <Menu.Item key="/user/3">用户3</Menu.Item>
       </SubMenu>
     </Menu>
   );
