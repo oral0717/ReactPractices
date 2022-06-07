@@ -13,6 +13,9 @@ function Home(props: Props) {
   return (
     <div>
       <div>计数器：<Counter initValue={1} /></div>
+      <div>useContext：
+        <p>useContext:用于多层组件通信</p>
+        <Counter initValue={1} /></div>
     </div>
   )
 }
