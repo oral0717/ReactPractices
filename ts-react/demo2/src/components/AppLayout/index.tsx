@@ -14,7 +14,6 @@ const AppLayout: FC = () => {
 
   useEffect(() => {
     const routes = matchRoutes(router, pathname)
-    console.log(4444, routes)
     const pathArr: string[] = []
     if (routes) {
       for (let match of routes) {
