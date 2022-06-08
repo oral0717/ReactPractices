@@ -1,7 +1,7 @@
 // useState 即时获取变量最新的值
 import { Button } from 'antd'
-import React, { useEffect, useRef, useState } from 'react'
-
+import React, { useContext, useRef, useState } from 'react'
+import HookUseContext from './HookUseContext'
 interface Props {
   initValue: number
 }
@@ -10,6 +10,8 @@ function Counter(props: Props) {
   const { initValue } = props
   const [count, setCount] = useState(initValue)
   const refTest = useRef(initValue)
+  const colorObj = useContext(HookUseContext)
+  console.log(1112, colorObj.color)
   const counter = () => {
     setCount(count => {
       const newCount = count + 1
@@ -28,8 +30,8 @@ function Counter(props: Props) {
   // }, [count])
   return (
     <>
-      <div>{count}-{refTest.current}</div>
-      <Button onClick={counter} type="ghost" danger>add</Button>
+      <div>{count}-{refTest.current}-{colorObj.color}</div>
+      <Button onClick={counter} type='ghost' danger>add</Button>
     </>
   )
 }
