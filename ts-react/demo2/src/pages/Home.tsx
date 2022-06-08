@@ -1,6 +1,7 @@
 import React from 'react'
 // import { useSearchParams } from 'react-router-dom'
 import Counter from './Counter'
+import HookUseReducer from './Hooks/HookUseReducer'
 
 interface Props { }
 
@@ -13,8 +14,8 @@ function Home(props: Props) {
   return (
     <div>
       <div>计数器：<Counter initValue={1} /></div>
-      <div>useContext：
-        <p>useContext:用于多层组件通信</p>
+      <div>useReducer：
+        <HookUseReducer></HookUseReducer>
       </div>
     </div>
   )
