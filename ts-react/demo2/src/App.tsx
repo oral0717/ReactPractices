@@ -1,23 +1,28 @@
-// import React from 'react';
-// import { Suspense } from 'react';
+import React, { FC, useReducer, Dispatch } from 'react';
 import { useRoutes } from 'react-router-dom';
-// import logo from './logo.svg';
 import './App.css';
 import router from './router';
-import HookUseContext from './pages/HookUseContext'
-function App() {
+import aReducer, { StateProps, ActionProps } from './reducer/a'
+import aState from './store/a'
+
+import ContextProvide from './hooks/ContextProvide'
+
+interface ContextProps {
+  state: StateProps[]
+  dispatch: Dispatch<ActionProps>
+}
+const App: FC = () => {
+  const initState: StateProps[] = aState.list
+  const [state, dispatch] = useReducer(aReducer, initState)
+  const transferParams: ContextProps = { state, dispatch }
   return (
     <div className="app">
-      <HookUseContext.Provider value={{ color: 'red' }}>
+      <ContextProvide value={transferParams}>
         {useRoutes(router)}
-      </HookUseContext.Provider>
+      </ContextProvide>
     </div>
   )
-  // return (
-  //   <Suspense fallback={<>loading</>}>
-  //     {useRoutes(router)}
-  //   </Suspense>
-  // )
+
 }
 
 export default App;

@@ -2,6 +2,7 @@ import React from 'react'
 // import { useSearchParams } from 'react-router-dom'
 import Counter from './Counter'
 import HookUseReducer from './Hooks/HookUseReducer'
+import UseContextUseReducer from './Hooks/UseContextUseReducer'
 
 interface Props { }
 
@@ -17,6 +18,12 @@ function Home(props: Props) {
       <div>useReducer：
         <HookUseReducer></HookUseReducer>
       </div>
+      <hr />
+      <div>
+        结合使用useContext
+        <UseContextUseReducer></UseContextUseReducer>
+      </div>
+      <hr />
     </div>
   )
 }

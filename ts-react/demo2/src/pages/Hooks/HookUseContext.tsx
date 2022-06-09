@@ -1,5 +1,5 @@
 
-// 1.创建context,如本文件
+// 1.创建context容器,如本文件HookUseContext
 // 2.根组件App下加入提供者
 /* <HookUseContext.Provider value={{ color: 'red' }}>
       {useRoutes(router)}//子组件都可以使用context数据

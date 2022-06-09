@@ -10,5 +10,5 @@ import { createContext } from 'react'
 //   }
 // }
 // const MyContext = createContext(themes)
-const MyContext = createContext({ color: "red" })
+const MyContext = createContext({ color: 'red' })
 export default MyContext
