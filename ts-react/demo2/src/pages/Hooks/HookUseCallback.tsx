@@ -8,7 +8,7 @@ import React, { useCallback, useState } from 'react'
 interface Props { }
 interface ChildProps {
   sex: string
-  handleChange?: () => void;
+  handleChange: () => void;
 }
 
 function HookUseCallback(props: Props) {
@@ -23,7 +23,7 @@ function HookUseCallback(props: Props) {
   }
   const handleChange = useCallback(() => {
     console.log(111, sex)
-  }, [sex])
+  }, [sex])// sex变化，handleChange才执行，HookUseCallbackChild才会渲染
   return (
     <>
       HookUseCallback使用：{`姓名-${name}`}
@@ -39,7 +39,7 @@ export default HookUseCallback
 const HookUseCallbackChild = React.memo((props: ChildProps) => {
   const { sex, handleChange } = props
   console.log('子组件渲染', handleChange)
-
+  handleChange()
   return (
     <>
       子组件：性别-{sex}
