@@ -11,7 +11,6 @@ function Counter(props: Props) {
   const [count, setCount] = useState(initValue)
   const refTest = useRef(initValue)
   const colorObj = useContext(HookUseContext)
-  console.log(1112, colorObj.color)
   const counter = () => {
     setCount(count => {
       const newCount = count + 1

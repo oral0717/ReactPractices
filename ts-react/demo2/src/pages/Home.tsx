@@ -1,6 +1,8 @@
 import React from 'react'
 // import { useSearchParams } from 'react-router-dom'
 import Counter from './Counter'
+import HookUseCallback from './Hooks/HookUseCallback'
+import HookUseMemo from './Hooks/HookUseMemo'
 import HookUseReducer from './Hooks/HookUseReducer'
 import UseContextUseReducer from './Hooks/UseContextUseReducer'
 
@@ -24,6 +26,13 @@ function Home(props: Props) {
         <UseContextUseReducer></UseContextUseReducer>
       </div>
       <hr />
+      <div>
+        <HookUseCallback />
+      </div>
+      <hr />
+      <div>
+        <HookUseMemo />
+      </div>
     </div>
   )
 }
