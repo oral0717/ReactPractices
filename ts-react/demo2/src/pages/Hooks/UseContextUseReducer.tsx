@@ -1,7 +1,7 @@
 // useContext useReducer联合使用
 import { Button } from 'antd'
 import React, { useContext } from 'react'
-import { MyContext } from '../../hooks/ContextProvide'
+import { MyContext } from '../../components/ContextProvide'
 interface Props { }
 
 function UseContextUseReducer(props: Props) {

@@ -5,7 +5,7 @@ import router from './router';
 import aReducer, { StateProps, ActionProps } from './reducer/a'
 import aState from './store/a'
 
-import ContextProvide from './hooks/ContextProvide'
+import ContextProvide from './components/ContextProvide'
 
 interface ContextProps {
   state: StateProps[]
